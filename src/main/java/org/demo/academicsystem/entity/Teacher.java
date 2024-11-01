@@ -7,9 +7,12 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 @Getter
@@ -20,7 +23,7 @@ import java.util.List;
 @Entity
 @Table(name = "teachers")
 @EntityListeners(AuditingEntityListener.class)
-public class Teacher {
+public class Teacher implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -53,9 +56,6 @@ public class Teacher {
     
     private String specialization;
 
-    private boolean accountLocked;
-    private boolean enabled;
-
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
@@ -67,4 +67,28 @@ public class Teacher {
     @OneToMany(mappedBy = "teacher")
     @JsonManagedReference
     private List<Class> classes;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
 }
