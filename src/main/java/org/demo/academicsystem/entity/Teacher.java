@@ -37,6 +37,9 @@ public class Teacher {
     private Integer phone;
     
     private LocalDate dateOfBirth;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     
     private LocalDate dateOfJoining;
     
