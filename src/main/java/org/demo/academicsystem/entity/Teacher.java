@@ -34,6 +34,12 @@ public class Teacher {
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(unique = true, nullable = false)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
     private Integer phone;
     
     private LocalDate dateOfBirth;
@@ -46,6 +52,9 @@ public class Teacher {
     private String department;
     
     private String specialization;
+
+    private boolean accountLocked;
+    private boolean enabled;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
