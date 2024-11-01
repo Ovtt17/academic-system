@@ -1,5 +1,6 @@
 package org.demo.academicsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -41,5 +42,6 @@ public class Assignment {
 
     @ManyToOne
     @JoinColumn(name = "class_id", nullable = false)
+    @JsonBackReference
     private Class aClass;
 }

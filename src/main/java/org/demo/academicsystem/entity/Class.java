@@ -1,5 +1,6 @@
 package org.demo.academicsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -52,9 +53,14 @@ public class Class {
 
     @ManyToOne
     @JoinColumn(name = "teacher_id", nullable = false)
-    @JsonManagedReference
+    @JsonBackReference
     private Teacher teacher;
 
     @ManyToMany(mappedBy = "classes")
+    @JsonManagedReference
     private List<Student> students;
+
+    @OneToMany(mappedBy = "aClass")
+    @JsonManagedReference
+    private List<Assignment> assignments;
 }

@@ -1,6 +1,7 @@
 package org.demo.academicsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -52,6 +53,6 @@ public class Teacher {
     private LocalDateTime lastModifiedDate;
 
     @OneToMany(mappedBy = "teacher")
-    @JsonBackReference
+    @JsonManagedReference
     private List<Class> classes;
 }

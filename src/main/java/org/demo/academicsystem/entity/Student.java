@@ -1,5 +1,7 @@
 package org.demo.academicsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -55,5 +57,14 @@ public class Student {
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "class_id")
     )
+    @JsonBackReference
     private List<Class> classes;
+
+    @OneToMany(mappedBy = "student")
+    @JsonManagedReference
+    private List<Grade> grades;
+
+    @OneToMany(mappedBy = "student")
+    @JsonManagedReference
+    private List<Attendance> attendances;
 }
