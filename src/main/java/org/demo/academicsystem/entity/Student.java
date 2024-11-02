@@ -53,12 +53,12 @@ public class Student {
 
     @ManyToMany
     @JoinTable(
-            name = "student_classes",
+            name = "students_courses",
             joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "class_id")
+            inverseJoinColumns = @JoinColumn(name = "course_id")
     )
     @JsonBackReference
-    private List<Class> classes;
+    private List<Course> courses;
 
     @OneToMany(mappedBy = "student")
     @JsonManagedReference

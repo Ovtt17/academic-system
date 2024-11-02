@@ -41,7 +41,7 @@ public class Assignment {
     private LocalDateTime lastModifiedDate;
 
     @ManyToOne
-    @JoinColumn(name = "class_id", nullable = false)
+    @JoinColumn(name = "course_id", nullable = false)
     @JsonBackReference
-    private Class aClass;
+    private Course course;
 }

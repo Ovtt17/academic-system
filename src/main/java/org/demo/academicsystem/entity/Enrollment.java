@@ -23,8 +23,8 @@ public class Enrollment {
     private LocalDateTime createdDate;
 
     @ManyToOne
-    @JoinColumn(name = "class_id", nullable = false)
-    private Class aClass;
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course course;
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)

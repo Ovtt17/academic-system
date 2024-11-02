@@ -33,9 +33,9 @@ public class Attendance {
     private LocalDate createdDate;
 
     @ManyToOne
-    @JoinColumn(name = "class_id", nullable = false)
+    @JoinColumn(name = "course_id", nullable = false)
     @JsonBackReference
-    private Class aClass;
+    private Course course;
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)

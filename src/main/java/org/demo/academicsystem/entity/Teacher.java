@@ -67,7 +67,7 @@ public class Teacher implements UserDetails {
 
     @OneToMany(mappedBy = "teacher")
     @JsonManagedReference
-    private List<Class> classes;
+    private List<Course> courses;
 
     public String getFullName() {
         return firstName + " " + lastName;
