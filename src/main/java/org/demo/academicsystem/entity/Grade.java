@@ -42,6 +42,16 @@ public class Grade {
     private Assignment assignment;
 
     @ManyToOne
+    @JoinColumn(name = "teacher_id", nullable = false)
+    @JsonBackReference
+    private Teacher teacher;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id", nullable = false)
+    @JsonBackReference
+    private Course course;
+
+    @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
     @JsonBackReference
     private Student student;
