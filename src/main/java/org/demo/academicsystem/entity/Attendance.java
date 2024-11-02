@@ -25,7 +25,8 @@ public class Attendance {
     private LocalDate date;
 
     @Column(nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private AttendanceStatus status;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
