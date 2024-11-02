@@ -1,6 +1,5 @@
 package org.demo.academicsystem.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -49,6 +48,8 @@ public class Teacher implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
+    private String profilePicture;
     
     private LocalDate dateOfJoining;
     
