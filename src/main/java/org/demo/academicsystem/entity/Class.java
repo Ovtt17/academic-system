@@ -37,12 +37,6 @@ public class Class {
     @Column(nullable = false)
     private String grade;
 
-    @Column(nullable = false)
-    private LocalTime startTime;
-
-    @Column(nullable = false)
-    private LocalTime endTime;
-
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
@@ -63,4 +57,8 @@ public class Class {
     @OneToMany(mappedBy = "aClass")
     @JsonManagedReference
     private List<Assignment> assignments;
+
+    @OneToMany(mappedBy = "aClass")
+    @JsonManagedReference
+    private List<ClassSchedule> schedules;
 }
