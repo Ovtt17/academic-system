@@ -14,12 +14,11 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {CourseScheduleMapper.class})
 @Component
 public interface CourseMapper {
     @Mapping(target = "students", expression = "java(mapStudentIdsToStudents(request.studentIds()))")
     @Mapping(target = "teacher", expression = "java(mapTeacherIdToTeacher(request.teacherId()))")
-    @Mapping(target = "schedules", expression = "java(mapScheduleRequestToSchedule(request.schedules()))")
     Course toEntity(CourseRequest request);
 
     CourseResponse toResponse(Course course);
