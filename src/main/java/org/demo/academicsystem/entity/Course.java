@@ -34,7 +34,7 @@ public class Course {
     private String section;
 
     @Column(nullable = false)
-    private String grade;
+    private String semester;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
