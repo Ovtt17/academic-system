@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.dto.teacher.TeacherRequest;
 import org.demo.academicsystem.dto.teacher.TeacherResponse;
 import org.demo.academicsystem.entity.Teacher;
+import org.demo.academicsystem.handler.exception.TeacherNotFoundException;
 import org.demo.academicsystem.mapper.TeacherMapper;
 import org.demo.academicsystem.repository.TeacherRepository;
 import org.demo.academicsystem.service.TeacherService;
@@ -28,7 +29,10 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public TeacherResponse getTeacherById(Long id) {
-        return null;
+        Teacher teacher = teacherRepository.findById(id).orElseThrow(
+                () -> new TeacherNotFoundException("Teacher not found with id " + id)
+        );
+        return teacherMapper.toResponse(teacher);
     }
 
     @Override
