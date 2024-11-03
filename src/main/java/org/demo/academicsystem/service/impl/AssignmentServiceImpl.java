@@ -64,7 +64,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Override
     public List<AssignmentResponse> getPendingAssignments() {
-        List<Assignment> assignments = assignmentRepository.findByDueDateAfter(LocalDate.now());
+        List<Assignment> assignments = assignmentRepository.findAllByDueDateAfter(LocalDate.now());
         return assignments.stream()
                 .map(assignmentMapper::toResponse)
                 .toList();
