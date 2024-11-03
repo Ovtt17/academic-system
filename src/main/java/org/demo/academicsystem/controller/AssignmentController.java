@@ -20,17 +20,17 @@ public class AssignmentController {
 
     @GetMapping
     public ResponseEntity<List<AssignmentResponse>> getAllAssignments() {
-        return ResponseEntity.ok(assignmentService.getAllAssignments());
+        return ResponseEntity.ok(assignmentService.getAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AssignmentResponse> getAssignmentById(@PathVariable @Valid Long id) {
-        return ResponseEntity.ok(assignmentService.getAssignmentById(id));
+        return ResponseEntity.ok(assignmentService.getById(id));
     }
 
     @PostMapping
     public ResponseEntity<AssignmentResponse> createAssignment(@RequestBody @Valid AssignmentRequest assignment) {
-        return ResponseEntity.ok(assignmentService.createAssignment(assignment));
+        return ResponseEntity.ok(assignmentService.create(assignment));
     }
 
     @PutMapping("/{id}")
@@ -38,12 +38,12 @@ public class AssignmentController {
             @PathVariable @Valid Long id,
             @RequestBody @Valid AssignmentRequest assignment
     ) {
-        return ResponseEntity.ok(assignmentService.updateAssignment(id, assignment));
+        return ResponseEntity.ok(assignmentService.update(id, assignment));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAssignment(@PathVariable @Valid Long id) {
-        assignmentService.deleteAssigment(id);
+        assignmentService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
