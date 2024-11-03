@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/classes")
+@RequestMapping("/courses")
 @RequiredArgsConstructor
-@Tag(name = "Classes")
-public class ClassController {
+@Tag(name = "Courses")
+public class CourseController {
 }
