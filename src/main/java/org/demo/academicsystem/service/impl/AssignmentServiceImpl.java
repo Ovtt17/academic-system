@@ -29,7 +29,8 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Override
     public Optional<AssignmentResponse> getAssignmentById(Long id) {
-        return Optional.empty();
+        Optional<Assignment> assignment = assignmentRepository.findById(id);
+        return assignment.map(assignmentMapper::toResponse);
     }
 
     @Override
