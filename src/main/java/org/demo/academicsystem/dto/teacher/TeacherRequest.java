@@ -25,7 +25,7 @@ public record TeacherRequest(
         String password,
 
         @NotNull(message = "Phone number is mandatory")
-        @Size(min = 10, max = 15, message = "Phone number must be between 10 and 15 characters")
+        @Size(min = 8, max = 8, message = "Phone number must have 8 characters")
         Integer phone,
 
         LocalDate dateOfBirth,
