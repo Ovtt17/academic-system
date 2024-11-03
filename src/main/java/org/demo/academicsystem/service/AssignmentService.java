@@ -2,7 +2,6 @@ package org.demo.academicsystem.service;
 
 import org.demo.academicsystem.dto.assignment.AssignmentRequest;
 import org.demo.academicsystem.dto.assignment.AssignmentResponse;
-import org.demo.academicsystem.entity.Assignment;
 
 import java.util.List;
 import java.util.Optional;
