@@ -35,7 +35,9 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Override
     public AssignmentResponse createAssignment(AssignmentRequest assignment) {
-        return null;
+        Assignment newAssigment = assignmentMapper.toEntity(assignment);
+        Assignment savedAssigment = assignmentRepository.save(newAssigment);
+        return assignmentMapper.toResponse(savedAssigment);
     }
 
     @Override
