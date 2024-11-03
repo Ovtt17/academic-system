@@ -4,9 +4,7 @@ import org.demo.academicsystem.dto.teacher.TeacherRequest;
 import org.demo.academicsystem.dto.teacher.TeacherResponse;
 import org.demo.academicsystem.entity.Teacher;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 
