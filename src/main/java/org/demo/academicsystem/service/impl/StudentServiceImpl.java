@@ -3,6 +3,8 @@ package org.demo.academicsystem.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.dto.student.StudentRequest;
 import org.demo.academicsystem.dto.student.StudentResponse;
+import org.demo.academicsystem.entity.Student;
+import org.demo.academicsystem.handler.exception.StudentNotFoundException;
 import org.demo.academicsystem.mapper.StudentMapper;
 import org.demo.academicsystem.repository.StudentRepository;
 import org.demo.academicsystem.service.StudentService;
@@ -18,26 +20,42 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<StudentResponse> getAll() {
-        return List.of();
+        List<Student> students = studentRepository.findAll();
+        return students.stream()
+                .map(studentMapper::toResponse)
+                .toList();
     }
 
     @Override
-    public StudentResponse getById(Long aLong) {
-        return null;
+    public StudentResponse getById(Long id) {
+        Student student = studentRepository.findById(id).orElseThrow(
+                () -> new StudentNotFoundException("Student not found with id " + id)
+        );
+        return studentMapper.toResponse(student);
     }
 
     @Override
     public StudentResponse create(StudentRequest studentRequest) {
-        return null;
+        Student newStudent = studentMapper.toEntity(studentRequest);
+        Student savedStudent = studentRepository.save(newStudent);
+        return studentMapper.toResponse(savedStudent);
     }
 
     @Override
-    public StudentResponse update(Long aLong, StudentRequest studentRequest) {
-        return null;
+    public StudentResponse update(Long id, StudentRequest studentRequest) {
+        studentRepository.findById(id)
+                .orElseThrow(() -> new StudentNotFoundException("Student not found with id " + id));
+        Student updatedStudent = studentMapper.toEntity(studentRequest);
+        updatedStudent.setId(id);
+        Student savedStudent = studentRepository.save(updatedStudent);
+        return studentMapper.toResponse(savedStudent);
     }
 
     @Override
-    public void delete(Long aLong) {
-
+    public void delete(Long id) {
+        if (!studentRepository.existsById(id)) {
+            throw new StudentNotFoundException("Student not found with id " + id);
+        }
+        studentRepository.deleteById(id);
     }
 }
