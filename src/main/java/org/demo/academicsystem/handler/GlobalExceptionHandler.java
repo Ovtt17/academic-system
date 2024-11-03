@@ -152,6 +152,19 @@ public class GlobalExceptionHandler {
                 );
     }
 
+    @ExceptionHandler(StudentNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleStudentNotFoundException (StudentNotFoundException e) {
+        return ResponseEntity
+                .status(NOT_FOUND)
+                .body(
+                        ExceptionResponse.builder()
+                                .businessErrorCode(STUDENT_NOT_FOUND.getCode())
+                                .businessErrorDescription(STUDENT_NOT_FOUND.getDescription())
+                                .error(e.getMessage())
+                                .build()
+                );
+    }
+
     @ExceptionHandler(AttendanceNotFoundException.class)
     public ResponseEntity<ExceptionResponse> handleAttendanceNotFoundException (AttendanceNotFoundException e) {
         return ResponseEntity
