@@ -43,8 +43,13 @@ public class GradeServiceImpl implements GradeService {
     }
 
     @Override
-    public GradeResponse update(Long aLong, GradeRequest gradeRequest) {
-        return null;
+    public GradeResponse update(Long id, GradeRequest gradeRequest) {
+        gradeRepository.findById(id)
+                .orElseThrow(() -> new GradeNotFoundException("Grade not found with id " + id));
+        Grade updatedGrade = gradeMapper.toEntity(gradeRequest);
+        updatedGrade.setId(id);
+        Grade savedGrade = gradeRepository.save(updatedGrade);
+        return gradeMapper.toResponse(savedGrade);
     }
 
     @Override
