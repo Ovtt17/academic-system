@@ -1,5 +1,6 @@
 package org.demo.academicsystem.dto.courseSchedule;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.DayOfWeek;
@@ -13,6 +14,9 @@ public record CourseScheduleRequest(
         LocalTime startTime,
 
         @NotNull(message = "End time is mandatory")
-        LocalTime endTime
+        LocalTime endTime,
+
+        @NotBlank(message = "Course ID is mandatory")
+        Long courseId
 ) {
 }
