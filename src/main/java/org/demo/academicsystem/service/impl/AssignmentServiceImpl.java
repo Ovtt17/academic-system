@@ -21,7 +21,10 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Override
     public List<AssignmentResponse> getAllAssignments() {
-        return List.of();
+        List<Assignment> assignments = assignmentRepository.findAll();
+        return assignments.stream()
+                .map(assignmentMapper::toResponse)
+                .toList();
     }
 
     @Override
