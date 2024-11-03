@@ -44,7 +44,12 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public TeacherResponse updateTeacher(Long id, TeacherRequest teacher) {
-        return null;
+        teacherRepository.findById(id)
+                .orElseThrow(() -> new TeacherNotFoundException("Teacher not found with id " + id));
+        Teacher updatedTeacher = teacherMapper.toEntity(teacher);
+        updatedTeacher.setId(id);
+        Teacher savedTeacher = teacherRepository.save(updatedTeacher);
+        return teacherMapper.toResponse(savedTeacher);
     }
 
     @Override
