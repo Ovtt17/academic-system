@@ -54,6 +54,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void deleteCourse(Long id) {
-
+        if (!courseRepository.existsById(id)) {
+            throw new CourseNotFoundException("Course not found with id " + id);
+        }
+        courseRepository.deleteById(id);
     }
 }
