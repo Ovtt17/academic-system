@@ -68,4 +68,8 @@ public class Student {
     @OneToMany(mappedBy = "student")
     @JsonManagedReference
     private List<Attendance> attendances;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }
