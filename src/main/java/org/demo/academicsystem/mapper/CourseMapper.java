@@ -17,8 +17,12 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring", uses = {CourseScheduleMapper.class})
 @Component
 public interface CourseMapper {
+
+    CourseScheduleMapper courseScheduleMapper = new CourseScheduleMapperImpl();
+
     @Mapping(target = "students", expression = "java(mapStudentIdsToStudents(request.studentIds()))")
     @Mapping(target = "teacher", expression = "java(mapTeacherIdToTeacher(request.teacherId()))")
+    @Mapping(target = "schedules", expression = "java(mapSchedules(request.schedules()))")
     Course toEntity(CourseRequest request);
 
     CourseResponse toResponse(Course course);
@@ -37,18 +41,9 @@ public interface CourseMapper {
                 .build();
     }
 
-    default List<CourseSchedule> mapScheduleRequestToSchedule(List<CourseScheduleRequest> scheduleRequests) {
+    default List<CourseSchedule> mapSchedules(List<CourseScheduleRequest> scheduleRequests) {
         return scheduleRequests.stream()
-                .map(request -> CourseSchedule.builder()
-                        .day(request.day())
-                        .startTime(request.startTime())
-                        .endTime(request.endTime())
-                        .course(
-                                Course.builder()
-                                        .id(request.courseId())
-                                        .build()
-                        )
-                        .build()
-                ).toList();
+                .map(courseScheduleMapper::toEntity)
+                .collect(Collectors.toList());
     }
 }
