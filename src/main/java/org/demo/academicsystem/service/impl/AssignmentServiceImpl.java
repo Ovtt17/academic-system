@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.dto.assignment.AssignmentRequest;
 import org.demo.academicsystem.dto.assignment.AssignmentResponse;
 import org.demo.academicsystem.entity.Assignment;
+import org.demo.academicsystem.handler.exception.AssignmentNotFoundException;
 import org.demo.academicsystem.mapper.AssignmentMapper;
 import org.demo.academicsystem.repository.AssignmentRepository;
 import org.demo.academicsystem.service.AssignmentService;
@@ -42,7 +43,13 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Override
     public AssignmentResponse updateAssignment(Long id, AssignmentRequest assignment) {
-        return null;
+        assignmentRepository.findById(id)
+                .orElseThrow(() -> new AssignmentNotFoundException("Assignment not found with id " + id));
+
+        Assignment updatedAssignment = assignmentMapper.toEntity(assignment);
+        updatedAssignment.setId(id);
+        Assignment savedAssigment = assignmentRepository.save(updatedAssignment);
+        return assignmentMapper.toResponse(savedAssigment);
     }
 
     @Override
