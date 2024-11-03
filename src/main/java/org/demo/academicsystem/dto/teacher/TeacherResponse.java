@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 @Builder
 public record TeacherResponse(
-        Long id,
         String firstName,
         String lastName,
         String fullName,
