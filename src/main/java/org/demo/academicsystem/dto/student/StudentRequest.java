@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.demo.academicsystem.entity.Gender;
 
 import java.time.LocalDate;
 
@@ -29,6 +30,9 @@ public record StudentRequest(
         String address,
 
         @NotNull(message = "Date of birth is mandatory")
-        LocalDate dateOfBirth
+        LocalDate dateOfBirth,
+
+        @NotBlank(message = "Gender is mandatory")
+        Gender gender
 ) {
 }

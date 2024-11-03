@@ -23,7 +23,8 @@ public class StudentMapperTest {
                 "john.doe@example.com",
                 12345678,
                 "123 Main St",
-                LocalDate.of(2000, 1, 1)
+                LocalDate.of(2000, 1, 1),
+                Gender.MALE
         );
 
         Student student = mapper.toEntity(request);
@@ -34,6 +35,7 @@ public class StudentMapperTest {
         assertEquals(request.phone(), student.getPhone());
         assertEquals(request.address(), student.getAddress());
         assertEquals(request.dateOfBirth(), student.getDateOfBirth());
+        assertEquals(request.gender(), student.getGender());
     }
 
     @Test
