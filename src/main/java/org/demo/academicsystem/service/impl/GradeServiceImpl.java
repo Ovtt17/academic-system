@@ -53,7 +53,10 @@ public class GradeServiceImpl implements GradeService {
     }
 
     @Override
-    public void delete(Long aLong) {
-
+    public void delete(Long id) {
+        if (!gradeRepository.existsById(id)) {
+            throw new GradeNotFoundException("Grade not found with id " + id);
+        }
+        gradeRepository.deleteById(id);
     }
 }
