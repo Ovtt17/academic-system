@@ -38,6 +38,11 @@ public class Attendance {
     private Course course;
 
     @ManyToOne
+    @JoinColumn(name = "schedule_id", nullable = false)
+    @JsonBackReference
+    private CourseSchedule schedule;
+
+    @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
     @JsonBackReference
     private Student student;
