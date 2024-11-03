@@ -29,6 +29,9 @@ public class Assignment {
     @Column(nullable = false, length = 500)
     private String description;
 
+    @Enumerated(EnumType.STRING)
+    private AssignmentStatus status = AssignmentStatus.OPEN;
+
     @Column(nullable = false)
     private LocalDate dueDate;
 
