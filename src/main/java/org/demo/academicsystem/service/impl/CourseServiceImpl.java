@@ -37,7 +37,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseResponse createCourse(CourseRequest course) {
-        return null;
+        Course newCourse = courseMapper.toEntity(course);
+        Course savedCourse = courseRepository.save(newCourse);
+        return courseMapper.toResponse(savedCourse);
     }
 
     @Override
