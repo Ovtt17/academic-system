@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Getter
@@ -19,7 +20,7 @@ public class CourseSchedule {
     private Long id;
 
     @Column(nullable = false)
-    private String day;
+    private LocalDate day;
 
     @Column(nullable = false)
     private LocalTime startTime;
