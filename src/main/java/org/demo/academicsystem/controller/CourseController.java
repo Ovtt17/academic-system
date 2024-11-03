@@ -4,13 +4,11 @@ package org.demo.academicsystem.controller;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.demo.academicsystem.dto.course.CourseRequest;
 import org.demo.academicsystem.dto.course.CourseResponse;
 import org.demo.academicsystem.service.CourseService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +27,10 @@ public class CourseController {
     @GetMapping("/{id}")
     public ResponseEntity<CourseResponse> getCourseById(@PathVariable @Valid Long id) {
         return ResponseEntity.ok(courseService.getCourseById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<CourseResponse> createCourse(@RequestBody @Valid CourseRequest course) {
+        return ResponseEntity.ok(courseService.createCourse(course));
     }
 }
