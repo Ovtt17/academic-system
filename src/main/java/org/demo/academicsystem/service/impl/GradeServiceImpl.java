@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.dto.grade.GradeRequest;
 import org.demo.academicsystem.dto.grade.GradeResponse;
 import org.demo.academicsystem.entity.Grade;
+import org.demo.academicsystem.handler.exception.GradeNotFoundException;
 import org.demo.academicsystem.mapper.GradeMapper;
 import org.demo.academicsystem.repository.GradeRepository;
 import org.demo.academicsystem.service.GradeService;
@@ -27,8 +28,11 @@ public class GradeServiceImpl implements GradeService {
     }
 
     @Override
-    public GradeResponse getById(Long aLong) {
-        return null;
+    public GradeResponse getById(Long id) {
+        Grade grade = gradeRepository.findById(id).orElseThrow(
+                () -> new GradeNotFoundException("Grade not found with id " + id)
+        );
+        return gradeMapper.toResponse(grade);
     }
 
     @Override
