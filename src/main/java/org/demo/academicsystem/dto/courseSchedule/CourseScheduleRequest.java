@@ -2,12 +2,12 @@ package org.demo.academicsystem.dto.courseSchedule;
 
 import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDate;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 public record CourseScheduleRequest(
         @NotNull(message = "Day is mandatory")
-        LocalDate day,
+        DayOfWeek day,
 
         @NotNull(message = "Start time is mandatory")
         LocalTime startTime,

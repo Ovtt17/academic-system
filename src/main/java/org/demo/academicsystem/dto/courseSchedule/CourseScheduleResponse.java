@@ -1,11 +1,11 @@
 package org.demo.academicsystem.dto.courseSchedule;
 
-import java.time.LocalDate;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 public record CourseScheduleResponse(
         Long id,
-        LocalDate day,
+        DayOfWeek day,
         LocalTime startTime,
         LocalTime endTime
 ) {
