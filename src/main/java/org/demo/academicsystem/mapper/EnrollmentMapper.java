@@ -30,10 +30,10 @@ public class EnrollmentMapper {
     }
 
     public EnrollmentResponse toResponse(Enrollment enrollment) {
-        return new EnrollmentResponse(
-                enrollment.getId(),
-                studentMapper.toResponse(enrollment.getStudent()),
-                courseMapper.toResponse(enrollment.getCourse())
-        );
+        return EnrollmentResponse.builder()
+                .id(enrollment.getId())
+                .student(studentMapper.toResponse(enrollment.getStudent()))
+                .course(courseMapper.toResponse(enrollment.getCourse()))
+                .build();
     }
 }
