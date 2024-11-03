@@ -2,6 +2,7 @@ package org.demo.academicsystem.handler;
 
 import org.demo.academicsystem.handler.exception.AssignmentNotFoundException;
 import org.demo.academicsystem.handler.exception.CourseNotFoundException;
+import org.demo.academicsystem.handler.exception.GradeNotFoundException;
 import org.demo.academicsystem.handler.exception.TeacherNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -123,6 +124,19 @@ public class GlobalExceptionHandler {
                         ExceptionResponse.builder()
                                 .businessErrorCode(COURSE_NOT_FOUND.getCode())
                                 .businessErrorDescription(COURSE_NOT_FOUND.getDescription())
+                                .error(e.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(GradeNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleGradeNotFoundException (GradeNotFoundException e) {
+        return ResponseEntity
+                .status(NOT_FOUND)
+                .body(
+                        ExceptionResponse.builder()
+                                .businessErrorCode(GRADE_NOT_FOUND.getCode())
+                                .businessErrorDescription(GRADE_NOT_FOUND.getDescription())
                                 .error(e.getMessage())
                                 .build()
                 );
