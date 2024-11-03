@@ -3,6 +3,7 @@ package org.demo.academicsystem.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.dto.teacher.TeacherRequest;
 import org.demo.academicsystem.dto.teacher.TeacherResponse;
+import org.demo.academicsystem.entity.Teacher;
 import org.demo.academicsystem.mapper.TeacherMapper;
 import org.demo.academicsystem.repository.TeacherRepository;
 import org.demo.academicsystem.service.TeacherService;
@@ -19,7 +20,10 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public List<TeacherResponse> getAllTeachers() {
-        return List.of();
+        List<Teacher> teachers = teacherRepository.findAll();
+        return teachers.stream()
+                .map(teacherMapper::toResponse)
+                .toList();
     }
 
     @Override
