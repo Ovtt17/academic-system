@@ -26,7 +26,7 @@ public record TeacherRequest(
 
         @NotNull(message = "Phone number is mandatory")
         @Size(min = 10, max = 15, message = "Phone number must be between 10 and 15 characters")
-        String phone,
+        Integer phone,
 
         LocalDate dateOfBirth,
 
