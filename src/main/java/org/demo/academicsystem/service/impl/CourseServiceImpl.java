@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.dto.course.CourseRequest;
 import org.demo.academicsystem.dto.course.CourseResponse;
 import org.demo.academicsystem.entity.Course;
+import org.demo.academicsystem.handler.exception.CourseNotFoundException;
 import org.demo.academicsystem.mapper.CourseMapper;
 import org.demo.academicsystem.repository.CourseRepository;
 import org.demo.academicsystem.service.CourseService;
@@ -28,7 +29,10 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseResponse getCourseById(Long id) {
-        return null;
+        Course course = courseRepository.findById(id).orElseThrow(
+                () -> new CourseNotFoundException("Course not found with id " + id)
+        );
+        return courseMapper.toResponse(course);
     }
 
     @Override
