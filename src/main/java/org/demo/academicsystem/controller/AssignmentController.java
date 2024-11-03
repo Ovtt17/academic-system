@@ -32,4 +32,12 @@ public class AssignmentController {
     public ResponseEntity<AssignmentResponse> createAssignment(@RequestBody @Valid AssignmentRequest assignment) {
         return ResponseEntity.ok(assignmentService.createAssignment(assignment));
     }
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<AssignmentResponse> updateAssignment(
+            @PathVariable @Valid Long id,
+            @RequestBody @Valid AssignmentRequest assignment
+    ) {
+        return ResponseEntity.ok(assignmentService.updateAssignment(id, assignment));
+    }
 }
