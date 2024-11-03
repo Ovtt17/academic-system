@@ -20,17 +20,17 @@ public class TeacherController {
 
     @GetMapping
     public ResponseEntity<List<TeacherResponse>> getAllTeachers() {
-        return ResponseEntity.ok(teacherService.getAllTeachers());
+        return ResponseEntity.ok(teacherService.getAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TeacherResponse> getTeacherById(@PathVariable @Valid Long id) {
-        return ResponseEntity.ok(teacherService.getTeacherById(id));
+        return ResponseEntity.ok(teacherService.getById(id));
     }
 
     @PostMapping
     public ResponseEntity<TeacherResponse> createAssignment(@RequestBody @Valid TeacherRequest teacher) {
-        return ResponseEntity.ok(teacherService.createTeacher(teacher));
+        return ResponseEntity.ok(teacherService.create(teacher));
     }
 
     @PutMapping("/{id}")
@@ -38,12 +38,12 @@ public class TeacherController {
             @PathVariable @Valid Long id,
             @RequestBody @Valid TeacherRequest teacher
     ) {
-        return ResponseEntity.ok(teacherService.updateTeacher(id, teacher));
+        return ResponseEntity.ok(teacherService.update(id, teacher));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTeacher(@PathVariable @Valid Long id) {
-        teacherService.deleteTeacher(id);
+        teacherService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
