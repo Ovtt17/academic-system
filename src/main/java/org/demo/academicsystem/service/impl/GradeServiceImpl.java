@@ -37,7 +37,9 @@ public class GradeServiceImpl implements GradeService {
 
     @Override
     public GradeResponse create(GradeRequest gradeRequest) {
-        return null;
+        Grade newGrade = gradeMapper.toEntity(gradeRequest);
+        Grade savedGrade = gradeRepository.save(newGrade);
+        return gradeMapper.toResponse(savedGrade);
     }
 
     @Override
