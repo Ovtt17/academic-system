@@ -20,7 +20,7 @@ public class CourseServiceImpl implements CourseService {
     private final CourseMapper courseMapper;
 
     @Override
-    public List<CourseResponse> getAllCourses() {
+    public List<CourseResponse> getAll() {
         List<Course> courses = courseRepository.findAll();
         return courses.stream()
                 .map(courseMapper::toResponse)
@@ -28,7 +28,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseResponse getCourseById(Long id) {
+    public CourseResponse getById(Long id) {
         Course course = courseRepository.findById(id).orElseThrow(
                 () -> new CourseNotFoundException("Course not found with id " + id)
         );
@@ -36,24 +36,24 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public CourseResponse createCourse(CourseRequest course) {
-        Course newCourse = courseMapper.toEntity(course);
+    public CourseResponse create(CourseRequest courseRequest) {
+        Course newCourse = courseMapper.toEntity(courseRequest);
         Course savedCourse = courseRepository.save(newCourse);
         return courseMapper.toResponse(savedCourse);
     }
 
     @Override
-    public CourseResponse updateCourse(Long id, CourseRequest course) {
+    public CourseResponse update(Long id, CourseRequest courseRequest) {
         courseRepository.findById(id)
                 .orElseThrow(() -> new CourseNotFoundException("Course not found with id " + id));
-        Course updatedCourse = courseMapper.toEntity(course);
+        Course updatedCourse = courseMapper.toEntity(courseRequest);
         updatedCourse.setId(id);
         Course savedCourse = courseRepository.save(updatedCourse);
         return courseMapper.toResponse(savedCourse);
     }
 
     @Override
-    public void deleteCourse(Long id) {
+    public void delete(Long id) {
         if (!courseRepository.existsById(id)) {
             throw new CourseNotFoundException("Course not found with id " + id);
         }
