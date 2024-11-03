@@ -2,6 +2,7 @@ package org.demo.academicsystem.mapper;
 
 import org.demo.academicsystem.dto.teacher.TeacherRequest;
 import org.demo.academicsystem.dto.teacher.TeacherResponse;
+import org.demo.academicsystem.entity.Gender;
 import org.demo.academicsystem.entity.Teacher;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -18,16 +19,18 @@ public class TeacherMapperTest {
     @Test
     public void toEntity() {
         TeacherRequest request = new TeacherRequest(
-            "Jane",
-            "Doe",
-            "jane.doe@example.com",
-            "password123",
-            98765432,
-            LocalDate.of(1980, 5, 15),
-            "profilePic.jpg",
-            LocalDate.of(2020, 1, 1),
-            "Science",
-            "Physics"
+                "Jane",
+                "Doe",
+                "jane.doe@example.com",
+                "jane.doe",
+                "password123",
+                98765432,
+                Gender.MALE,
+                LocalDate.of(1980, 5, 15),
+                "profilePic.jpg",
+                LocalDate.of(2020, 1, 1),
+                "Science",
+                "Physics"
         );
 
         Teacher teacher = teacherMapper.toEntity(request);
@@ -36,8 +39,10 @@ public class TeacherMapperTest {
         assertEquals(request.firstName(), teacher.getFirstName());
         assertEquals(request.lastName(), teacher.getLastName());
         assertEquals(request.email(), teacher.getEmail());
+        assertEquals(request.username(), teacher.getUsername());
         assertEquals(request.password(), teacher.getPassword());
         assertEquals(request.phone(), teacher.getPhone());
+        assertEquals(request.gender(), teacher.getGender());
         assertEquals(request.dateOfBirth(), teacher.getDateOfBirth());
         assertEquals(request.profilePicture(), teacher.getProfilePicture());
         assertEquals(request.dateOfJoining(), teacher.getDateOfJoining());
@@ -48,6 +53,7 @@ public class TeacherMapperTest {
     @Test
     public void toResponse() {
         Teacher teacher = Teacher.builder()
+                .id(1L)
                 .firstName("Jane")
                 .lastName("Doe")
                 .email("jane.doe@example.com")
@@ -62,6 +68,7 @@ public class TeacherMapperTest {
         TeacherResponse response = teacherMapper.toResponse(teacher);
 
         assertNotNull(response);
+        assertEquals(teacher.getId(), response.id());
         assertEquals(teacher.getFirstName(), response.firstName());
         assertEquals(teacher.getLastName(), response.lastName());
         assertEquals(teacher.getFullName(), response.fullName());

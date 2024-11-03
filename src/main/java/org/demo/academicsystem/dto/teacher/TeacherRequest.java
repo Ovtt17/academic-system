@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.demo.academicsystem.entity.Gender;
 
 import java.time.LocalDate;
 
@@ -20,6 +21,10 @@ public record TeacherRequest(
         @Email(message = "Email should be valid")
         String email,
 
+        @NotBlank(message = "Username is mandatory")
+        @Size(max = 20, message = "Username must be less than 50 characters")
+        String username,
+
         @NotBlank(message = "Password is mandatory")
         @Size(min = 8, message = "Password must be at least 8 characters long")
         String password,
@@ -27,6 +32,8 @@ public record TeacherRequest(
         @NotNull(message = "Phone number is mandatory")
         @Size(min = 8, max = 8, message = "Phone number must have 8 characters")
         Integer phone,
+
+        Gender gender,
 
         LocalDate dateOfBirth,
 
