@@ -18,6 +18,7 @@ public enum BusinessErrorCodes {
     COURSE_NOT_FOUND (307, NOT_FOUND, "Curso no encontrado"),
     ASSIGNMENT_NOT_FOUND (308, NOT_FOUND, "Tarea no encontrada"),
     GRADE_NOT_FOUND (309, NOT_FOUND, "Calificación no encontrada"),
+    ENROLLMENT_NOT_FOUND (310, NOT_FOUND, "Matrícula no encontrada"),
     ;
     private final int code;
     private final String description;
