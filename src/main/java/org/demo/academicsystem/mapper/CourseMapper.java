@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public interface CourseMapper {
     @Mapping(target = "students", expression = "java(mapStudentIdsToStudents(request.studentIds()))")
     @Mapping(target = "teacher", expression = "java(mapTeacherIdToTeacher(request.teacherId()))")
-    @Mapping(target = "schedules", expression = "java(mapScheduleIdsToSchedules(request.schedules()))")
+    @Mapping(target = "schedules", expression = "java(mapScheduleRequestToSchedule(request.schedules()))")
     Course toEntity(CourseRequest request);
 
     CourseResponse toResponse(Course course);
@@ -38,7 +38,7 @@ public interface CourseMapper {
                 .build();
     }
 
-    default List<CourseSchedule> mapScheduleIdsToSchedules(List<CourseScheduleRequest> scheduleRequests) {
+    default List<CourseSchedule> mapScheduleRequestToSchedule(List<CourseScheduleRequest> scheduleRequests) {
         return scheduleRequests.stream()
                 .map(request -> CourseSchedule.builder()
                         .day(request.day())
