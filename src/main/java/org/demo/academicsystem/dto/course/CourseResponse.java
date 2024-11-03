@@ -6,6 +6,7 @@ import org.demo.academicsystem.dto.student.StudentResponse;
 import org.demo.academicsystem.dto.teacher.TeacherResponse;
 
 import java.util.List;
+import java.util.Optional;
 
 public record CourseResponse(
         Long id,
@@ -13,7 +14,7 @@ public record CourseResponse(
         String description,
         String semester,
         List<CourseScheduleResponse> schedules,
-        List<AssignmentResponse> assignments,
+        Optional<List<AssignmentResponse>> assignments,
         List<StudentResponse> students,
         TeacherResponse teacher
 ) {
