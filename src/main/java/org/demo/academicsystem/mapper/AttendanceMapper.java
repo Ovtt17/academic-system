@@ -32,12 +32,12 @@ public class AttendanceMapper {
     }
 
     public AttendanceResponse toResponse(Attendance attendance) {
-        return new AttendanceResponse(
-                attendance.getId(),
-                attendance.getStudent().getFullName(),
-                attendance.getCourse().getName(),
-                attendance.getCreatedDate(),
-                attendance.getStatus()
-        );
+        return AttendanceResponse.builder()
+                .id(attendance.getId())
+                .studentFullName(attendance.getStudent().getFullName())
+                .courseName(attendance.getCourse().getName())
+                .date(attendance.getCreatedDate())
+                .status(attendance.getStatus())
+                .build();
     }
 }
