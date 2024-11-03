@@ -20,7 +20,7 @@ public class TeacherServiceImpl implements TeacherService {
     private final TeacherMapper teacherMapper;
 
     @Override
-    public List<TeacherResponse> getAllTeachers() {
+    public List<TeacherResponse> getAll() {
         List<Teacher> teachers = teacherRepository.findAll();
         return teachers.stream()
                 .map(teacherMapper::toResponse)
@@ -28,7 +28,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public TeacherResponse getTeacherById(Long id) {
+    public TeacherResponse getById(Long id) {
         Teacher teacher = teacherRepository.findById(id).orElseThrow(
                 () -> new TeacherNotFoundException("Teacher not found with id " + id)
         );
@@ -36,24 +36,24 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public TeacherResponse createTeacher(TeacherRequest teacher) {
-        Teacher newTeacher = teacherMapper.toEntity(teacher);
+    public TeacherResponse create(TeacherRequest teacherRequest) {
+        Teacher newTeacher = teacherMapper.toEntity(teacherRequest);
         Teacher savedTeacher = teacherRepository.save(newTeacher);
         return teacherMapper.toResponse(savedTeacher);
     }
 
     @Override
-    public TeacherResponse updateTeacher(Long id, TeacherRequest teacher) {
+    public TeacherResponse update(Long id, TeacherRequest teacherRequest) {
         teacherRepository.findById(id)
                 .orElseThrow(() -> new TeacherNotFoundException("Teacher not found with id " + id));
-        Teacher updatedTeacher = teacherMapper.toEntity(teacher);
+        Teacher updatedTeacher = teacherMapper.toEntity(teacherRequest);
         updatedTeacher.setId(id);
         Teacher savedTeacher = teacherRepository.save(updatedTeacher);
         return teacherMapper.toResponse(savedTeacher);
     }
 
     @Override
-    public void deleteTeacher(Long id) {
+    public void delete(Long id) {
         if (!teacherRepository.existsById(id)) {
             throw new TeacherNotFoundException("Teacher not found with id " + id);
         }
