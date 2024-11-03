@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = "spring")
 @Component
-public abstract class AssignmentMapper {
+public interface AssignmentMapper {
     @Mapping(target = "course", expression = "java(mapCourseIdToCourse(request.courseId()))")
-    public abstract Assignment toEntity(AssignmentRequest request);
-    public abstract AssignmentResponse toResponse(Assignment assignment);
+    Assignment toEntity(AssignmentRequest request);
+    AssignmentResponse toResponse(Assignment assignment);
 
-    protected Course mapCourseIdToCourse(Long courseId) {
+    default Course mapCourseIdToCourse(Long courseId) {
         return Course.builder()
                 .id(courseId)
                 .build();
