@@ -22,9 +22,6 @@ public class Attendance {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDate date;
-
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private AttendanceStatus status;
 
