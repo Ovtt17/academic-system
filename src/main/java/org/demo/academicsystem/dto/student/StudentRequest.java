@@ -22,7 +22,7 @@ public record StudentRequest(
 
         @NotBlank(message = "Phone number is mandatory")
         @Size(min = 8, max = 8, message = "Phone number must be 8 characters")
-        String phone,
+        Integer phone,
 
         @NotBlank(message = "Address is mandatory")
         @Size(max = 100, message = "Address must be less than 100 characters")

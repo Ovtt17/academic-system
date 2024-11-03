@@ -7,7 +7,7 @@ public record StudentResponse(
         String firstName,
         String lastName,
         String email,
-        String phone,
+        Integer phone,
         String address,
         String gender,
         LocalDate dateOfBirth
