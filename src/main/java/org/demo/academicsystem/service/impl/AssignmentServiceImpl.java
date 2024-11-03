@@ -10,6 +10,7 @@ import org.demo.academicsystem.repository.AssignmentRepository;
 import org.demo.academicsystem.service.AssignmentService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -59,5 +60,13 @@ public class AssignmentServiceImpl implements AssignmentService {
             throw new AssignmentNotFoundException("Assignment not found with id " + id);
         }
         assignmentRepository.deleteById(id);
+    }
+
+    @Override
+    public List<AssignmentResponse> getPendingAssignments() {
+        List<Assignment> assignments = assignmentRepository.findByDueDateAfter(LocalDate.now());
+        return assignments.stream()
+                .map(assignmentMapper::toResponse)
+                .toList();
     }
 }
