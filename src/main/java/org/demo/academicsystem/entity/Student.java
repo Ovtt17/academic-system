@@ -41,6 +41,7 @@ public class Student {
 
     private String address;
 
+    @Column(length = 8)
     private Integer phone;
 
     @CreatedDate
