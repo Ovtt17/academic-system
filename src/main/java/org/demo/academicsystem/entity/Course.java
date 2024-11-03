@@ -9,7 +9,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -18,9 +17,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "classes")
+@Table(name = "courses")
 @EntityListeners(AuditingEntityListener.class)
-public class Class {
+public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,13 +34,7 @@ public class Class {
     private String section;
 
     @Column(nullable = false)
-    private String grade;
-
-    @Column(nullable = false)
-    private LocalTime startTime;
-
-    @Column(nullable = false)
-    private LocalTime endTime;
+    private String semester;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -56,11 +49,15 @@ public class Class {
     @JsonBackReference
     private Teacher teacher;
 
-    @ManyToMany(mappedBy = "classes")
+    @ManyToMany(mappedBy = "courses")
     @JsonManagedReference
     private List<Student> students;
 
-    @OneToMany(mappedBy = "aClass")
+    @OneToMany(mappedBy = "course")
     @JsonManagedReference
     private List<Assignment> assignments;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<CourseSchedule> schedules;
 }

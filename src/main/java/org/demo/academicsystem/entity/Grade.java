@@ -23,7 +23,7 @@ public class Grade {
     private Long id;
 
     @Column(nullable = false)
-    private Integer grade;
+    private Double grade;
 
     @Column(length = 100)
     private String comments;
@@ -40,6 +40,16 @@ public class Grade {
     @JoinColumn(name = "assignment_id", nullable = false)
     @JsonBackReference
     private Assignment assignment;
+
+    @ManyToOne
+    @JoinColumn(name = "teacher_id", nullable = false)
+    @JsonBackReference
+    private Teacher teacher;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id", nullable = false)
+    @JsonBackReference
+    private Course course;
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)

@@ -22,19 +22,22 @@ public class Attendance {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDate date;
-
-    @Column(nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private AttendanceStatus status;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDate createdDate;
 
     @ManyToOne
-    @JoinColumn(name = "class_id", nullable = false)
+    @JoinColumn(name = "course_id", nullable = false)
     @JsonBackReference
-    private Class aClass;
+    private Course course;
+
+    @ManyToOne
+    @JoinColumn(name = "schedule_id", nullable = false)
+    @JsonBackReference
+    private CourseSchedule schedule;
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)

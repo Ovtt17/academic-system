@@ -29,6 +29,9 @@ public class Assignment {
     @Column(nullable = false, length = 500)
     private String description;
 
+    @Enumerated(EnumType.STRING)
+    private AssignmentStatus status = AssignmentStatus.OPEN;
+
     @Column(nullable = false)
     private LocalDate dueDate;
 
@@ -41,7 +44,7 @@ public class Assignment {
     private LocalDateTime lastModifiedDate;
 
     @ManyToOne
-    @JoinColumn(name = "class_id", nullable = false)
+    @JoinColumn(name = "course_id", nullable = false)
     @JsonBackReference
-    private Class aClass;
+    private Course course;
 }
