@@ -44,7 +44,12 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseResponse updateCourse(Long id, CourseRequest course) {
-        return null;
+        courseRepository.findById(id)
+                .orElseThrow(() -> new CourseNotFoundException("Course not found with id " + id));
+        Course updatedCourse = courseMapper.toEntity(course);
+        updatedCourse.setId(id);
+        Course savedCourse = courseRepository.save(updatedCourse);
+        return courseMapper.toResponse(savedCourse);
     }
 
     @Override
