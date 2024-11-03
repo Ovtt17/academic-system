@@ -37,7 +37,9 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public TeacherResponse createTeacher(TeacherRequest teacher) {
-        return null;
+        Teacher newTeacher = teacherMapper.toEntity(teacher);
+        Teacher savedTeacher = teacherRepository.save(newTeacher);
+        return teacherMapper.toResponse(savedTeacher);
     }
 
     @Override
