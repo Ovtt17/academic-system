@@ -12,8 +12,8 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "class_schedules")
-public class ClassSchedule {
+@Table(name = "course_schedules")
+public class CourseSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

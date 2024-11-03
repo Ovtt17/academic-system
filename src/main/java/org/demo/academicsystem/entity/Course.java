@@ -59,5 +59,5 @@ public class Course {
 
     @OneToMany(mappedBy = "course")
     @JsonManagedReference
-    private List<ClassSchedule> schedules;
+    private List<CourseSchedule> schedules;
 }
