@@ -3,6 +3,7 @@ package org.demo.academicsystem.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.dto.grade.GradeRequest;
 import org.demo.academicsystem.dto.grade.GradeResponse;
+import org.demo.academicsystem.entity.Grade;
 import org.demo.academicsystem.mapper.GradeMapper;
 import org.demo.academicsystem.repository.GradeRepository;
 import org.demo.academicsystem.service.GradeService;
@@ -19,7 +20,10 @@ public class GradeServiceImpl implements GradeService {
 
     @Override
     public List<GradeResponse> getAll() {
-        return List.of();
+        List<Grade> grades = gradeRepository.findAll();
+        return grades.stream()
+                .map(gradeMapper::toResponse)
+                .toList();
     }
 
     @Override
