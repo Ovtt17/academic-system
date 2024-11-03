@@ -42,6 +42,7 @@ public class Teacher implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Column(length = 8)
     private Integer phone;
     
     private LocalDate dateOfBirth;
@@ -74,6 +75,16 @@ public class Teacher implements UserDetails {
     }
 
     @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
     }
@@ -91,5 +102,10 @@ public class Teacher implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
     }
 }
