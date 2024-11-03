@@ -10,5 +10,5 @@ public interface AssignmentService {
     AssignmentResponse getAssignmentById(Long id);
     AssignmentResponse createAssignment(AssignmentRequest assignment);
     AssignmentResponse updateAssignment(Long id, AssignmentRequest assignment);
-    boolean deleteAssigment(Long id);
+    void deleteAssigment(Long id);
 }

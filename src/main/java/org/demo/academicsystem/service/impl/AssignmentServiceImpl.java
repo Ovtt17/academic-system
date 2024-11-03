@@ -54,11 +54,10 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
-    public boolean deleteAssigment(Long id) {
+    public void deleteAssigment(Long id) {
         if (!assignmentRepository.existsById(id)) {
             throw new AssignmentNotFoundException("Assignment not found with id " + id);
         }
         assignmentRepository.deleteById(id);
-        return true;
     }
 }
