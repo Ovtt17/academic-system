@@ -11,7 +11,6 @@ import org.demo.academicsystem.service.AssignmentService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,9 +28,11 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
-    public Optional<AssignmentResponse> getAssignmentById(Long id) {
-        Optional<Assignment> assignment = assignmentRepository.findById(id);
-        return assignment.map(assignmentMapper::toResponse);
+    public AssignmentResponse getAssignmentById(Long id) {
+        Assignment assignment = assignmentRepository.findById(id).orElseThrow(
+                () -> new AssignmentNotFoundException("Assignment not found with id " + id)
+        );
+        return assignmentMapper.toResponse(assignment);
     }
 
     @Override
