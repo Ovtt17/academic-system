@@ -59,6 +59,6 @@ public class AssignmentServiceImpl implements AssignmentService {
             throw new AssignmentNotFoundException("Assignment not found with id " + id);
         }
         assignmentRepository.deleteById(id);
-        return false;
+        return true;
     }
 }
