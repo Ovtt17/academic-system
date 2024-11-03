@@ -20,7 +20,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     private final AssignmentMapper assignmentMapper;
 
     @Override
-    public List<AssignmentResponse> getAllAssignments() {
+    public List<AssignmentResponse> getAll() {
         List<Assignment> assignments = assignmentRepository.findAll();
         return assignments.stream()
                 .map(assignmentMapper::toResponse)
@@ -28,7 +28,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
-    public AssignmentResponse getAssignmentById(Long id) {
+    public AssignmentResponse getById(Long id) {
         Assignment assignment = assignmentRepository.findById(id).orElseThrow(
                 () -> new AssignmentNotFoundException("Assignment not found with id " + id)
         );
@@ -36,25 +36,25 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
-    public AssignmentResponse createAssignment(AssignmentRequest assignment) {
-        Assignment newAssigment = assignmentMapper.toEntity(assignment);
+    public AssignmentResponse create(AssignmentRequest assignmentRequest) {
+        Assignment newAssigment = assignmentMapper.toEntity(assignmentRequest);
         Assignment savedAssigment = assignmentRepository.save(newAssigment);
         return assignmentMapper.toResponse(savedAssigment);
     }
 
     @Override
-    public AssignmentResponse updateAssignment(Long id, AssignmentRequest assignment) {
+    public AssignmentResponse update(Long id, AssignmentRequest assignmentRequest) {
         assignmentRepository.findById(id)
                 .orElseThrow(() -> new AssignmentNotFoundException("Assignment not found with id " + id));
 
-        Assignment updatedAssignment = assignmentMapper.toEntity(assignment);
+        Assignment updatedAssignment = assignmentMapper.toEntity(assignmentRequest);
         updatedAssignment.setId(id);
         Assignment savedAssigment = assignmentRepository.save(updatedAssignment);
         return assignmentMapper.toResponse(savedAssigment);
     }
 
     @Override
-    public void deleteAssigment(Long id) {
+    public void delete(Long id) {
         if (!assignmentRepository.existsById(id)) {
             throw new AssignmentNotFoundException("Assignment not found with id " + id);
         }
