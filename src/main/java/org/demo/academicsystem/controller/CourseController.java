@@ -21,17 +21,17 @@ public class CourseController {
 
     @GetMapping
     public ResponseEntity<List<CourseResponse>> getAllCourses() {
-        return ResponseEntity.ok(courseService.getAllCourses());
+        return ResponseEntity.ok(courseService.getAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CourseResponse> getCourseById(@PathVariable @Valid Long id) {
-        return ResponseEntity.ok(courseService.getCourseById(id));
+        return ResponseEntity.ok(courseService.getById(id));
     }
 
     @PostMapping
     public ResponseEntity<CourseResponse> createCourse(@RequestBody @Valid CourseRequest course) {
-        return ResponseEntity.ok(courseService.createCourse(course));
+        return ResponseEntity.ok(courseService.create(course));
     }
 
     @PutMapping("/{id}")
@@ -39,12 +39,12 @@ public class CourseController {
             @PathVariable @Valid Long id,
             @RequestBody @Valid CourseRequest course
     ) {
-        return ResponseEntity.ok(courseService.updateCourse(id, course));
+        return ResponseEntity.ok(courseService.update(id, course));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCourse(@PathVariable @Valid Long id) {
-        courseService.deleteCourse(id);
+        courseService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
