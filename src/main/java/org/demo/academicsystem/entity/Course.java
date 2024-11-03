@@ -57,7 +57,7 @@ public class Course {
     @JsonManagedReference
     private List<Assignment> assignments;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<CourseSchedule> schedules;
 }
