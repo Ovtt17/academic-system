@@ -23,7 +23,7 @@ public class Grade {
     private Long id;
 
     @Column(nullable = false)
-    private Integer grade;
+    private Double grade;
 
     @Column(length = 100)
     private String comments;
