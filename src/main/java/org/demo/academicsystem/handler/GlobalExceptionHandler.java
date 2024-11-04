@@ -177,4 +177,17 @@ public class GlobalExceptionHandler {
                                 .build()
                 );
     }
+
+    @ExceptionHandler(SubmissionNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleSubmissionNotFoundException (SubmissionNotFoundException e) {
+        return ResponseEntity
+                .status(NOT_FOUND)
+                .body(
+                        ExceptionResponse.builder()
+                                .businessErrorCode(SUBMISSION_NOT_FOUND.getCode())
+                                .businessErrorDescription(SUBMISSION_NOT_FOUND.getDescription())
+                                .error(e.getMessage())
+                                .build()
+                );
+    }
 }
