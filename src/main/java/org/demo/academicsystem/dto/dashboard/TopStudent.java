@@ -1,8 +1,11 @@
 package org.demo.academicsystem.dto.dashboard;
 
+import lombok.Builder;
+
+@Builder
 public record TopStudent(
         Long id,
-        String name,
+        String fullName,
         String average
 ) {
 }
