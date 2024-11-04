@@ -3,6 +3,7 @@ package org.demo.academicsystem.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.dto.assignment.AssignmentRequest;
 import org.demo.academicsystem.dto.assignment.AssignmentResponse;
+import org.demo.academicsystem.dto.dashboard.PendingAssignment;
 import org.demo.academicsystem.entity.Assignment;
 import org.demo.academicsystem.handler.exception.AssignmentNotFoundException;
 import org.demo.academicsystem.mapper.AssignmentMapper;
@@ -63,10 +64,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
-    public List<AssignmentResponse> getPendingAssignments() {
-        List<Assignment> assignments = assignmentRepository.findAllByDueDateAfter(LocalDate.now());
-        return assignments.stream()
-                .map(assignmentMapper::toResponse)
-                .toList();
+    public List<PendingAssignment> getPendingAssignments() {
+        return assignmentRepository.findPendingAssignments(LocalDate.now());
     }
 }
