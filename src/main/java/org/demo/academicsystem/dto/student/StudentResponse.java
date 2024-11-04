@@ -6,6 +6,7 @@ public record StudentResponse(
         Long id,
         String firstName,
         String lastName,
+        String fullName,
         String email,
         Integer phone,
         String address,

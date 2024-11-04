@@ -3,6 +3,6 @@ package org.demo.academicsystem.dto.dashboard;
 public record WeeklyScoreByCourse(
         int week,
         double score,
-        TeachersCourse course
+        TeacherCourseDetails course
 ) {
 }

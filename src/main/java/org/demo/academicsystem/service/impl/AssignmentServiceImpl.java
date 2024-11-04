@@ -3,6 +3,7 @@ package org.demo.academicsystem.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.dto.assignment.AssignmentRequest;
 import org.demo.academicsystem.dto.assignment.AssignmentResponse;
+import org.demo.academicsystem.dto.dashboard.PendingAssignment;
 import org.demo.academicsystem.entity.Assignment;
 import org.demo.academicsystem.handler.exception.AssignmentNotFoundException;
 import org.demo.academicsystem.mapper.AssignmentMapper;
@@ -10,6 +11,7 @@ import org.demo.academicsystem.repository.AssignmentRepository;
 import org.demo.academicsystem.service.AssignmentService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -59,5 +61,10 @@ public class AssignmentServiceImpl implements AssignmentService {
             throw new AssignmentNotFoundException("Assignment not found with id " + id);
         }
         assignmentRepository.deleteById(id);
+    }
+
+    @Override
+    public List<PendingAssignment> getPendingAssignments() {
+        return assignmentRepository.findPendingAssignments(LocalDate.now());
     }
 }

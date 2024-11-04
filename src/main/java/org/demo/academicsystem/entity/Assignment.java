@@ -30,6 +30,7 @@ public class Assignment {
     private String description;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private AssignmentStatus status = AssignmentStatus.OPEN;
 
     @Column(nullable = false)
