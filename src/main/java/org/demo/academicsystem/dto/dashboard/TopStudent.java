@@ -6,6 +6,6 @@ import lombok.Builder;
 public record TopStudent(
         Long id,
         String fullName,
-        String average
+        Double average
 ) {
 }
