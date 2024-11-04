@@ -58,4 +58,12 @@ public class StudentServiceImpl implements StudentService {
         }
         studentRepository.deleteById(id);
     }
+
+    @Override
+    public List<StudentResponse> getTop10Students(Long teacherId) {
+        List<Student> students = studentRepository.findTop10StudentsByTeacherIdOrderByAverageGradeDesc(teacherId);
+        return students.stream()
+                .map(studentMapper::toResponse)
+                .toList();
+    }
 }
