@@ -59,4 +59,12 @@ public class CourseServiceImpl implements CourseService {
         }
         courseRepository.deleteById(id);
     }
+
+    @Override
+    public List<CourseResponse> getAllTeacherCourses(Long teacherId) {
+        List<Course> courses = courseRepository.findAllByTeacherId(teacherId);
+        return courses.stream()
+                .map(courseMapper::toResponse)
+                .toList();
+    }
 }
