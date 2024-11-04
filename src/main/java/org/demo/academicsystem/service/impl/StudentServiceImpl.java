@@ -1,6 +1,7 @@
 package org.demo.academicsystem.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.demo.academicsystem.dto.dashboard.TopStudent;
 import org.demo.academicsystem.dto.student.StudentRequest;
 import org.demo.academicsystem.dto.student.StudentResponse;
 import org.demo.academicsystem.entity.Student;
@@ -60,10 +61,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentResponse> getTop10Students(Long teacherId) {
-        List<Student> students = studentRepository.findTop10StudentsByTeacherIdOrderByAverageGradeDesc(teacherId);
-        return students.stream()
-                .map(studentMapper::toResponse)
-                .toList();
+    public List<TopStudent> getTop10Students(Long teacherId) {
+        return studentRepository.findTop10StudentsByTeacherIdOrderByAverageGradeDesc(teacherId);
     }
 }
