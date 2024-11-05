@@ -21,6 +21,7 @@ public interface CourseMapper {
     @Mapping(target = "schedules", expression = "java(mapSchedules(request.schedules()))")
     Course toEntity(CourseRequest request);
 
+    @Mapping(target = "totalStudents", expression = "java(course.getEnrollments() != null ? (long) course.getEnrollments().size() : 0L)")
     CourseResponse toResponse(Course course);
 
     default Teacher mapTeacherIdToTeacher(Long teacherId) {
