@@ -1,37 +1,39 @@
 package org.demo.academicsystem.mapper;
 
+import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.dto.assignment.AssignmentRequest;
 import org.demo.academicsystem.dto.assignment.AssignmentResponse;
 import org.demo.academicsystem.entity.Assignment;
 import org.demo.academicsystem.entity.Course;
 import org.demo.academicsystem.service.SubmissionService;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring")
 @Component
-public abstract class AssignmentMapper {
-
-    @Autowired
-    private SubmissionService submissionService;
-
-    @Mapping(target = "course", expression = "java(mapCourseIdToCourse(request.courseId()))")
-    public abstract Assignment toEntity(AssignmentRequest request);
-
-    @Mapping(target = "totalSubmissions", source = "id", qualifiedByName = "mapTotalSubmissions")
-    public abstract AssignmentResponse toResponse(Assignment assignment);
-
-    protected  Course mapCourseIdToCourse(Long courseId) {
-        return Course.builder()
-                .id(courseId)
+@RequiredArgsConstructor
+public class AssignmentMapper {
+    private final SubmissionService submissionService;
+    public Assignment toEntity(AssignmentRequest request) {
+        return Assignment.builder()
+                .title(request.title())
+                .description(request.description())
+                .dueDate(request.dueDate())
+                .course(
+                        Course.builder()
+                        .id(request.courseId())
+                        .build()
+                )
                 .build();
     }
 
-    @Named("mapTotalSubmissions")
-    protected Long mapTotalSubmissions(Long assignmentId) {
-        return submissionService.countByAssignmentId(assignmentId);
+    public AssignmentResponse toResponse(Assignment assignment) {
+        Long totalSubmissions = submissionService.countByAssignmentId(assignment.getId());
+        return AssignmentResponse.builder()
+                .id(assignment.getId())
+                .title(assignment.getTitle())
+                .description(assignment.getDescription())
+                .dueDate(assignment.getDueDate())
+                .status(assignment.getStatus())
+                .totalSubmissions(totalSubmissions)
+                .build();
     }
 }
