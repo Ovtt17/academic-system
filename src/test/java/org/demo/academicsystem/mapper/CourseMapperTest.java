@@ -4,7 +4,6 @@ import org.demo.academicsystem.dto.course.CourseRequest;
 import org.demo.academicsystem.dto.course.CourseResponse;
 import org.demo.academicsystem.dto.courseSchedule.CourseScheduleRequest;
 import org.demo.academicsystem.entity.Course;
-import org.demo.academicsystem.entity.Student;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -40,8 +39,7 @@ public class CourseMapperTest {
                                 LocalTime.of(10, 30),
                                 1L
                         )
-                ),
-                List.of(1L, 2L, 3L)
+                )
         );
 
         Course course = mapper.toEntity(request);
@@ -53,11 +51,6 @@ public class CourseMapperTest {
         assertEquals(request.semester(), course.getSemester());
         assertEquals(request.teacherId(), course.getTeacher().getId());
         assertEquals(request.schedules().size(), course.getSchedules().size());
-        assertEquals(request.studentIds().size(), course.getStudents().size());
-
-        for (int i = 0; i < request.studentIds().size(); i++) {
-            assertEquals(request.studentIds().get(i), course.getStudents().get(i).getId());
-        }
     }
 
     @Test
@@ -68,11 +61,6 @@ public class CourseMapperTest {
                 .description("Basic Mathematics")
                 .section("A")
                 .semester("Fall 2023")
-                .students(List.of(
-                        Student.builder().id(1L).build(),
-                        Student.builder().id(2L).build(),
-                        Student.builder().id(3L).build()
-                ))
                 .build();
 
         CourseResponse response = mapper.toResponse(course);
@@ -82,10 +70,5 @@ public class CourseMapperTest {
         assertEquals(course.getName(), response.name());
         assertEquals(course.getDescription(), response.description());
         assertEquals(course.getSemester(), response.semester());
-        assertEquals(course.getStudents().size(), response.students().size());
-
-        for (int i = 0; i < course.getStudents().size(); i++) {
-            assertEquals(course.getStudents().get(i).getId(), response.students().get(i).id());
-        }
     }
 }

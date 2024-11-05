@@ -49,9 +49,9 @@ public class Course {
     @JsonBackReference
     private Teacher teacher;
 
-    @ManyToMany(mappedBy = "courses")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Student> students;
+    private List<Enrollment> enrollments;
 
     @OneToMany(mappedBy = "course")
     @JsonManagedReference

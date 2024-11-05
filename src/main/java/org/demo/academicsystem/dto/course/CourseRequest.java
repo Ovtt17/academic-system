@@ -1,6 +1,5 @@
 package org.demo.academicsystem.dto.course;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -25,13 +24,10 @@ public record CourseRequest(
         @Size(min = 3, max = 20, message = "Course semester must be between 3 and 20 characters")
         String semester,
 
-        @NotBlank(message = "Teacher ID is required")
+        @NotNull(message = "Teacher ID is required")
         Long teacherId,
 
         @NotNull(message = "Course schedule is required")
-        List<CourseScheduleRequest> schedules,
-
-        @Min(value = 1, message = "There must be at least 1 student in the course")
-        List<Long> studentIds
+        List<CourseScheduleRequest> schedules
 ) {
 }

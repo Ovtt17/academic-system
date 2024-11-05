@@ -1,6 +1,5 @@
 package org.demo.academicsystem.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -52,14 +51,9 @@ public class Student {
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
 
-    @ManyToMany
-    @JoinTable(
-            name = "students_courses",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id")
-    )
-    @JsonBackReference
-    private List<Course> courses;
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Enrollment> enrollments;
 
     @OneToMany(mappedBy = "student")
     @JsonManagedReference

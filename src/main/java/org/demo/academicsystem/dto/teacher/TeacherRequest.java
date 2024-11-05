@@ -1,9 +1,6 @@
 package org.demo.academicsystem.dto.teacher;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import org.demo.academicsystem.entity.Gender;
 
 import java.time.LocalDate;
@@ -30,7 +27,8 @@ public record TeacherRequest(
         String password,
 
         @NotNull(message = "Phone number is mandatory")
-        @Size(min = 8, max = 8, message = "Phone number must have 8 characters")
+        @Min(value = 10000000, message = "Phone number must be 8 digits")
+        @Max(value = 99999999, message = "Phone number must be 8 digits")
         Integer phone,
 
         Gender gender,
