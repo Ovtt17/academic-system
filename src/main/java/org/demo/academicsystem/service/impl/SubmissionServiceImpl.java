@@ -59,4 +59,9 @@ public class SubmissionServiceImpl implements SubmissionService {
         submissionRepository.deleteById(id);
 
     }
+
+    @Override
+    public Long countByAssignmentId(Long assignmentId) {
+        return submissionRepository.countByAssignmentId(assignmentId);
+    }
 }
