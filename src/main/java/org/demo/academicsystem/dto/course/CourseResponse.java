@@ -13,6 +13,7 @@ public record CourseResponse(
         String semester,
         List<CourseScheduleResponse> schedules,
         List<AssignmentResponse> assignments,
+        Long totalStudents,
         TeacherResponse teacher
 ) {
 }
