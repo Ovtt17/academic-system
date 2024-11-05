@@ -28,9 +28,6 @@ public record CourseRequest(
         Long teacherId,
 
         @NotNull(message = "Course schedule is required")
-        List<CourseScheduleRequest> schedules,
-
-        @Size(min = 1, message = "There must be at least 1 student in the course")
-        List<Long> studentIds
+        List<CourseScheduleRequest> schedules
 ) {
 }
