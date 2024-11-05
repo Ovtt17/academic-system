@@ -9,6 +9,7 @@ public record AssignmentResponse(
         String title,
         String description,
         LocalDate dueDate,
-        AssignmentStatus status
+        AssignmentStatus status,
+        Long totalSubmissions
 ) {
 }
