@@ -50,6 +50,7 @@ public class Teacher implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    @Column(columnDefinition = "TEXT")
     private String profilePicture;
     
     private LocalDate dateOfJoining;
