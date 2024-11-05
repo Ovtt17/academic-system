@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public record AssignmentRequest(
         @NotBlank(message = "Title is mandatory")
@@ -18,7 +18,7 @@ public record AssignmentRequest(
 
         @NotNull(message = "Due date is mandatory")
         @FutureOrPresent(message = "Due date must be in the future")
-        LocalDateTime dueDate,
+        LocalDate dueDate,
 
         @NotNull(message = "Course ID is mandatory")
         Long courseId
