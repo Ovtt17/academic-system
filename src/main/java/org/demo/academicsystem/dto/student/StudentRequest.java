@@ -1,9 +1,6 @@
 package org.demo.academicsystem.dto.student;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import org.demo.academicsystem.entity.Gender;
 
 import java.time.LocalDate;
@@ -21,8 +18,9 @@ public record StudentRequest(
         @Email(message = "Email should be valid")
         String email,
 
-        @NotBlank(message = "Phone number is mandatory")
-        @Size(min = 8, max = 8, message = "Phone number must be 8 characters")
+        @NotNull(message = "Phone number is mandatory")
+        @Min(value = 10000000, message = "Phone number must be 8 digits")
+        @Max(value = 99999999, message = "Phone number must be 8 digits")
         Integer phone,
 
         @NotBlank(message = "Address is mandatory")
@@ -32,7 +30,7 @@ public record StudentRequest(
         @NotNull(message = "Date of birth is mandatory")
         LocalDate dateOfBirth,
 
-        @NotBlank(message = "Gender is mandatory")
+        @NotNull(message = "Gender is mandatory")
         Gender gender
 ) {
 }
