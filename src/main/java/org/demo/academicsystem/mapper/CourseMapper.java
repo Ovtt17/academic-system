@@ -43,6 +43,7 @@ public class CourseMapper {
                 .id(course.getId())
                 .name(course.getName())
                 .description(course.getDescription())
+                .section(course.getSection())
                 .semester(course.getSemester())
                 .schedules(course.getSchedules().stream()
                         .map(courseScheduleMapper::toResponse)

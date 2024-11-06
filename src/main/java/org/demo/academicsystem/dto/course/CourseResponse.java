@@ -12,6 +12,7 @@ public record CourseResponse(
         Long id,
         String name,
         String description,
+        String section,
         String semester,
         List<CourseScheduleResponse> schedules,
         List<AssignmentResponse> assignments,
