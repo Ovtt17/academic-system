@@ -1,5 +1,6 @@
 package org.demo.academicsystem.service.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.dto.course.CourseRequest;
 import org.demo.academicsystem.dto.course.CourseResponse;
@@ -36,6 +37,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public CourseResponse create(CourseRequest courseRequest) {
         Course newCourse = courseMapper.toEntity(courseRequest);
         Course savedCourse = courseRepository.save(newCourse);
