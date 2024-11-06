@@ -1,38 +1,62 @@
 package org.demo.academicsystem.mapper;
 
+import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.dto.course.CourseRequest;
 import org.demo.academicsystem.dto.course.CourseResponse;
-import org.demo.academicsystem.dto.courseSchedule.CourseScheduleRequest;
-import org.demo.academicsystem.entity.*;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.demo.academicsystem.entity.Course;
+import org.demo.academicsystem.entity.CourseSchedule;
+import org.demo.academicsystem.entity.Teacher;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring", uses = {CourseScheduleMapper.class, AssignmentMapper.class})
 @Component
-public interface CourseMapper {
+@RequiredArgsConstructor
+public class CourseMapper {
+    private final CourseScheduleMapper courseScheduleMapper;
+    private final AssignmentMapper assignmentMapper;
+    private final TeacherMapper teacherMapper;
 
-    CourseScheduleMapper courseScheduleMapper = new CourseScheduleMapperImpl();
-
-    @Mapping(target = "teacher", expression = "java(mapTeacherIdToTeacher(request.teacherId()))")
-    @Mapping(target = "schedules", expression = "java(mapSchedules(request.schedules()))")
-    Course toEntity(CourseRequest request);
-
-    @Mapping(target = "totalStudents", expression = "java(course.getEnrollments() != null ? (long) course.getEnrollments().size() : 0L)")
-    CourseResponse toResponse(Course course);
-
-    default Teacher mapTeacherIdToTeacher(Long teacherId) {
-        return Teacher.builder()
-                .id(teacherId)
+    public Course toEntity(CourseRequest request) {
+        Course course = Course.builder()
+                .name(request.name())
+                .description(request.description())
+                .section(request.section())
+                .semester(request.semester())
+                .teacher(Teacher.builder().id(request.teacherId()).build())
                 .build();
+
+        course.setSchedules(request.schedules().stream()
+                .map(schedule -> {
+                    CourseSchedule courseSchedule = courseScheduleMapper.toEntity(schedule);
+                    courseSchedule.setCourse(course);
+                    return courseSchedule;
+                })
+                .collect(Collectors.toList())
+        );
+
+        return course;
     }
 
-    default List<CourseSchedule> mapSchedules(List<CourseScheduleRequest> scheduleRequests) {
-        return scheduleRequests.stream()
-                .map(courseScheduleMapper::toEntity)
-                .collect(Collectors.toList());
+    public CourseResponse toResponse(Course course) {
+        return CourseResponse.builder()
+                .id(course.getId())
+                .name(course.getName())
+                .description(course.getDescription())
+                .section(course.getSection())
+                .semester(course.getSemester())
+                .schedules(course.getSchedules().stream()
+                        .map(courseScheduleMapper::toResponse)
+                        .collect(Collectors.toList())
+                )
+                .assignments(course.getAssignments().stream()
+                        .map(assignmentMapper::toResponse)
+                        .collect(Collectors.toList())
+                )
+                .totalStudents((long) course.getEnrollments().size())
+                .teacher(
+                        teacherMapper.toResponse(course.getTeacher())
+                )
+                .build();
     }
 }

@@ -1,7 +1,10 @@
 package org.demo.academicsystem.dto.student;
 
+import lombok.Builder;
+
 import java.time.LocalDate;
 
+@Builder
 public record StudentResponse(
         Long id,
         String firstName,
