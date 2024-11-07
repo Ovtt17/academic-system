@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -48,4 +49,7 @@ public class Assignment {
     @JoinColumn(name = "course_id", nullable = false)
     @JsonBackReference
     private Course course;
+
+    @OneToMany(mappedBy = "assignment")
+    private List<Grade> grades;
 }

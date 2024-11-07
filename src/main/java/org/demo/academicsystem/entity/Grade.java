@@ -22,7 +22,7 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 2)
     private Double grade;
 
     @Column(length = 100)

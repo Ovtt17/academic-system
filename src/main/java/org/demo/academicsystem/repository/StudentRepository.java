@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
-    @Query("SELECT new org.demo.academicsystem.dto.dashboard.TopStudent(s.id,  CONCAT(s.firstName, ' ', s.lastName), AVG(g.grade)) " +
+    @Query("SELECT new org.demo.academicsystem.dto.dashboard.TopStudent(s.id, CONCAT(s.firstName, ' ', s.lastName), CAST(ROUND(AVG(g.grade), 1) AS double)) " +
             "FROM Student s " +
             "JOIN s.grades g " +
             "WHERE g.teacher.id = :teacherId " +

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.dto.assignment.AssignmentRequest;
 import org.demo.academicsystem.dto.assignment.AssignmentResponse;
 import org.demo.academicsystem.dto.dashboard.PendingAssignment;
+import org.demo.academicsystem.dto.dashboard.WeeklyScoreByCourse;
 import org.demo.academicsystem.entity.Assignment;
 import org.demo.academicsystem.handler.exception.AssignmentNotFoundException;
 import org.demo.academicsystem.mapper.AssignmentMapper;
@@ -66,5 +67,10 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     public List<PendingAssignment> getPendingAssignments() {
         return assignmentRepository.findPendingAssignments(LocalDate.now());
+    }
+
+    @Override
+    public List<WeeklyScoreByCourse> getWeeklyScores(Long teacherId) {
+        return assignmentRepository.findWeeklyScoresByTeacherId(teacherId);
     }
 }
