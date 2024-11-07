@@ -1,6 +1,7 @@
 package org.demo.academicsystem.repository;
 
 import org.demo.academicsystem.dto.dashboard.PendingAssignment;
+import org.demo.academicsystem.dto.dashboard.WeeklyScoreByCourse;
 import org.demo.academicsystem.entity.Assignment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,4 +22,10 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
             "WHERE a.dueDate > :dueDate " +
             "GROUP BY a.id, a.title, a.dueDate")
     List<PendingAssignment> findPendingAssignments(@Param("dueDate") LocalDate dueDate);
+
+    @Query("SELECT new org.demo.academicsystem.dto.dashboard.WeeklyScoreByCourse(WEEK(a.createdDate), AVG(g.grade), c.name) " +
+            "FROM Assignment a JOIN a.course c JOIN a.grades g " +
+            "WHERE c.teacher.id = :teacherId " +
+            "GROUP BY WEEK(a.createdDate), c.name")
+    List<WeeklyScoreByCourse> findWeeklyScoresByTeacherId(@Param("teacherId") Long teacherId);
 }
