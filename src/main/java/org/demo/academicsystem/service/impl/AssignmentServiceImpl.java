@@ -71,7 +71,6 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Override
     public List<WeeklyScoreByCourse> getWeeklyScores(Long teacherId) {
-        teacherId = 1L;
         return assignmentRepository.findWeeklyScoresByTeacherId(teacherId);
     }
 }
