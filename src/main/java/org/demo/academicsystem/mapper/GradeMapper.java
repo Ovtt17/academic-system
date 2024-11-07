@@ -10,9 +10,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class GradeMapper {
     private final StudentMapper studentMapper;
-    private final CourseMapper courseMapper;
-    private final AssignmentMapper assignmentMapper;
-    private final TeacherMapper teacherMapper;
 
     public Grade toEntity(GradeRequest request) {
         return Grade.builder()
