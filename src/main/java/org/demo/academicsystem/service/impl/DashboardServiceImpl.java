@@ -2,10 +2,7 @@ package org.demo.academicsystem.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.dto.course.CourseResponse;
-import org.demo.academicsystem.dto.dashboard.DashboardData;
-import org.demo.academicsystem.dto.dashboard.PendingAssignment;
-import org.demo.academicsystem.dto.dashboard.TeacherCourseDetails;
-import org.demo.academicsystem.dto.dashboard.TopStudent;
+import org.demo.academicsystem.dto.dashboard.*;
 import org.demo.academicsystem.service.AssignmentService;
 import org.demo.academicsystem.service.CourseService;
 import org.demo.academicsystem.service.DashboardService;
@@ -27,6 +24,7 @@ public class DashboardServiceImpl implements DashboardService {
         List<CourseResponse> teacherCourses = courseService.getAllTeacherCourses(teacherId);
         List<TopStudent> top10Students = studentService.getTop10Students(teacherId);
         List<PendingAssignment> pendingAssignments = assignmentService.getPendingAssignments();
+        List<WeeklyScoreByCourse> weeklyScores = assignmentService.getWeeklyScores(teacherId);
 
         return DashboardData.builder()
                 .courses(
@@ -34,11 +32,13 @@ public class DashboardServiceImpl implements DashboardService {
                                 .map(course -> TeacherCourseDetails.builder()
                                         .id(course.id())
                                         .name(course.name())
+                                        .description(course.description())
                                         .build())
                                 .collect(Collectors.toList())
                 )
                 .students(top10Students)
                 .pendingAssignments(pendingAssignments)
+                .weeklyScores(weeklyScores)
                 .build();
     }
 }
