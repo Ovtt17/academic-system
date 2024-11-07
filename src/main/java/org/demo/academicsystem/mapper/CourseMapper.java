@@ -8,6 +8,7 @@ import org.demo.academicsystem.entity.CourseSchedule;
 import org.demo.academicsystem.entity.Teacher;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 @Component
@@ -45,18 +46,14 @@ public class CourseMapper {
                 .description(course.getDescription())
                 .section(course.getSection())
                 .semester(course.getSemester())
-                .schedules(course.getSchedules().stream()
+                .schedules(course.getSchedules() != null ? course.getSchedules().stream()
                         .map(courseScheduleMapper::toResponse)
-                        .collect(Collectors.toList())
-                )
-                .assignments(course.getAssignments().stream()
+                        .collect(Collectors.toList()) : Collections.emptyList())
+                .assignments(course.getAssignments() != null ? course.getAssignments().stream()
                         .map(assignmentMapper::toResponse)
-                        .collect(Collectors.toList())
-                )
-                .totalStudents((long) course.getEnrollments().size())
-                .teacher(
-                        teacherMapper.toResponse(course.getTeacher())
-                )
+                        .collect(Collectors.toList()) : Collections.emptyList())
+                .totalStudents(course.getEnrollments() != null ? (long) course.getEnrollments().size() : 0L)
+                .teacher(teacherMapper.toResponse(course.getTeacher()))
                 .build();
     }
 }
