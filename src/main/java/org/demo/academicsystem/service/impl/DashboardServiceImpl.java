@@ -3,10 +3,8 @@ package org.demo.academicsystem.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.dto.course.CourseResponse;
 import org.demo.academicsystem.dto.dashboard.*;
-import org.demo.academicsystem.service.AssignmentService;
-import org.demo.academicsystem.service.CourseService;
-import org.demo.academicsystem.service.DashboardService;
-import org.demo.academicsystem.service.StudentService;
+import org.demo.academicsystem.service.*;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,13 +16,16 @@ public class DashboardServiceImpl implements DashboardService {
     private final AssignmentService assignmentService;
     private final CourseService courseService;
     private final StudentService studentService;
+    private final AuthenticationService authenticationService;
 
     @Override
-    public DashboardData getDashboardData(Long teacherId) {
-        List<CourseResponse> teacherCourses = courseService.getAllTeacherCourses(teacherId);
-        List<TopStudent> top10Students = studentService.getTop10Students(teacherId);
+    public DashboardData getDashboardData(OAuth2AuthenticationToken authenticationToken) {
+        var teacherInfo = authenticationService.getUserInfo(authenticationToken);
+
+        List<CourseResponse> teacherCourses = courseService.getAllTeacherCourses(teacherInfo.email());
+        List<TopStudent> top10Students = studentService.getTop10Students(teacherInfo.email());
         List<PendingAssignment> pendingAssignments = assignmentService.getPendingAssignments();
-        List<WeeklyScoreByCourse> weeklyScores = assignmentService.getWeeklyScores(teacherId);
+        List<WeeklyScoreByCourse> weeklyScores = assignmentService.getWeeklyScores(teacherInfo.email());
 
         return DashboardData.builder()
                 .courses(

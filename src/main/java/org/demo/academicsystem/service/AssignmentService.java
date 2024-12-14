@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface AssignmentService extends GenericService<AssignmentRequest, AssignmentResponse, Long> {
     List<PendingAssignment> getPendingAssignments();
-    List<WeeklyScoreByCourse> getWeeklyScores(Long teacherId);
+    List<WeeklyScoreByCourse> getWeeklyScores(String email);
 }

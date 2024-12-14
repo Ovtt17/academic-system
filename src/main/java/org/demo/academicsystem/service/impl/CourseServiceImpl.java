@@ -63,8 +63,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseResponse> getAllTeacherCourses(Long teacherId) {
-        List<Course> courses = courseRepository.findAllByTeacherId(teacherId);
+    public List<CourseResponse> getAllTeacherCourses(String email) {
+        List<Course> courses = courseRepository.findAllByTeacherEmail(email);
         return courses.stream()
                 .map(courseMapper::toResponse)
                 .toList();

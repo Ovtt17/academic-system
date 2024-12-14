@@ -12,8 +12,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("SELECT new org.demo.academicsystem.dto.dashboard.TopStudent(s.id, CONCAT(s.firstName, ' ', s.lastName), CAST(ROUND(AVG(g.grade), 1) AS double)) " +
             "FROM Student s " +
             "JOIN s.grades g " +
-            "WHERE g.teacher.id = :teacherId " +
+            "WHERE g.teacher.email = :email " +
             "GROUP BY s.id, s.firstName, s.lastName " +
             "ORDER BY AVG(g.grade) DESC")
-    List<TopStudent> findTop10StudentsByTeacherIdOrderByAverageGradeDesc(@Param("teacherId") Long teacherId);
+    List<TopStudent> findTop10StudentsByTeacherIdOrderByAverageGradeDesc(@Param("email") String email);
 }

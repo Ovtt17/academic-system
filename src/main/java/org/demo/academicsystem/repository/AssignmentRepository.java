@@ -25,7 +25,7 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
 
     @Query("SELECT new org.demo.academicsystem.dto.dashboard.WeeklyScoreByCourse(WEEK(a.createdDate), AVG(g.grade), c.name) " +
             "FROM Assignment a JOIN a.course c JOIN a.grades g " +
-            "WHERE c.teacher.id = :teacherId " +
+            "WHERE c.teacher.email = :email " +
             "GROUP BY WEEK(a.createdDate), c.name")
-    List<WeeklyScoreByCourse> findWeeklyScoresByTeacherId(@Param("teacherId") Long teacherId);
+    List<WeeklyScoreByCourse> findWeeklyScoresByTeacherEmail(@Param("email") String email);
 }
