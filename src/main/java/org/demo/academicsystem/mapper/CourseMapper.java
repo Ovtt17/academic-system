@@ -5,7 +5,6 @@ import org.demo.academicsystem.dto.course.CourseRequest;
 import org.demo.academicsystem.dto.course.CourseResponse;
 import org.demo.academicsystem.entity.Course;
 import org.demo.academicsystem.entity.CourseSchedule;
-import org.demo.academicsystem.entity.Teacher;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -24,7 +23,6 @@ public class CourseMapper {
                 .description(request.description())
                 .section(request.section())
                 .semester(request.semester())
-                .teacher(Teacher.builder().id(request.teacherId()).build())
                 .build();
 
         course.setSchedules(request.schedules().stream()
@@ -53,7 +51,7 @@ public class CourseMapper {
                         .map(assignmentMapper::toResponse)
                         .collect(Collectors.toList()) : Collections.emptyList())
                 .totalStudents(course.getEnrollments() != null ? (long) course.getEnrollments().size() : 0L)
-                .teacher(teacherMapper.toResponse(course.getTeacher()))
+                .teacher(teacherMapper.toResponse(course.getCreatedBy()))
                 .build();
     }
 }
