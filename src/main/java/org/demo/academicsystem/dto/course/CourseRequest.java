@@ -13,19 +13,16 @@ public record CourseRequest(
         String name,
 
         @NotBlank(message = "Course description is required")
-        @Size(min = 10, max = 500, message = "Course description must be between 10 and 500 characters")
+        @Size(min = 10, max = 150, message = "Course description must be between 10 and 150 characters")
         String description,
 
         @NotBlank(message = "Course section is required")
-        @Size(min = 1, max = 10, message = "Course section must be between 1 and 10 characters")
+        @Size(min = 1, max = 50, message = "Course section must be between 1 and 50 characters")
         String section,
 
         @NotBlank(message = "Course semester is required")
         @Size(min = 3, max = 20, message = "Course semester must be between 3 and 20 characters")
         String semester,
-
-        @NotNull(message = "Teacher ID is required")
-        Long teacherId,
 
         @NotNull(message = "Course schedule is required")
         List<CourseScheduleRequest> schedules
