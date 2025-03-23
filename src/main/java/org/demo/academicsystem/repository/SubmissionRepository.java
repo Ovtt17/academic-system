@@ -9,4 +9,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SubmissionRepository extends JpaRepository<Submission, Long> {
     @Query("SELECT COUNT(s) FROM Submission s WHERE s.assignment.id = :assignmentId")
-    Long countByAssignmentId(@Param("assignmentId") Long assignmentId);}
+    Integer countByAssignmentId(@Param("assignmentId") Long assignmentId);}
