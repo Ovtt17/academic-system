@@ -13,7 +13,6 @@ public class TeacherMapper {
                 .lastName(request.lastName())
                 .email(request.email())
                 .username(request.username())
-                .password(request.password())
                 .phone(request.phone())
                 .gender(request.gender())
                 .dateOfBirth(request.dateOfBirth())

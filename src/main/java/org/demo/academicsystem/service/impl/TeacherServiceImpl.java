@@ -59,4 +59,11 @@ public class TeacherServiceImpl implements TeacherService {
         }
         teacherRepository.deleteById(id);
     }
+
+    @Override
+    public Teacher getTeacherByEmail(String email) {
+        return teacherRepository.findByEmail(email).orElseThrow(
+                () -> new TeacherNotFoundException("Teacher not found with email " + email)
+        );
+    }
 }

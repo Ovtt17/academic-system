@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public record AssignmentRequest(
+        Long id,
+
         @NotBlank(message = "Title is mandatory")
         @Size(min = 3, max = 100, message = "Title must be between 3 and 100 characters")
         String title,

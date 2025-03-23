@@ -22,10 +22,6 @@ public record TeacherRequest(
         @Size(max = 20, message = "Username must be less than 50 characters")
         String username,
 
-        @NotBlank(message = "Password is mandatory")
-        @Size(min = 8, message = "Password must be at least 8 characters long")
-        String password,
-
         @NotNull(message = "Phone number is mandatory")
         @Min(value = 10000000, message = "Phone number must be 8 digits")
         @Max(value = 99999999, message = "Phone number must be 8 digits")

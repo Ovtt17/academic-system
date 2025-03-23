@@ -4,5 +4,5 @@ import org.demo.academicsystem.dto.submission.SubmissionRequest;
 import org.demo.academicsystem.dto.submission.SubmissionResponse;
 
 public interface SubmissionService extends GenericService<SubmissionRequest, SubmissionResponse, Long> {
-    Long countByAssignmentId(Long assignmentId);
+    Integer countByAssignmentId(Long assignmentId);
 }

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -44,19 +45,18 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
-                        authorize
-                                .requestMatchers("*").permitAll()
-                                .anyRequest().authenticated()
-                )
-                .formLogin(form -> form
-                        .loginPage(frontendUrl + "/login")
-                        .permitAll()
+                        authorize.anyRequest().authenticated()
                 )
                 .oauth2Login(oauth -> oauth
+                        .loginPage(frontendUrl + "/login")
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(customOAuth2UserService)
                         )
-                        .defaultSuccessUrl(frontendUrl, true));
+                        .defaultSuccessUrl(frontendUrl, true)
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                );
         return http.build();
     }
 }

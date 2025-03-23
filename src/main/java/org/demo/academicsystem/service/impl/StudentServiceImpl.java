@@ -61,7 +61,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<TopStudent> getTop10Students(Long teacherId) {
-        return studentRepository.findTop10StudentsByTeacherIdOrderByAverageGradeDesc(teacherId);
+    public List<TopStudent> getTop10Students(String email) {
+        return studentRepository.findTop10StudentsByTeacherIdOrderByAverageGradeDesc(email);
     }
 }

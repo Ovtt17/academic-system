@@ -61,7 +61,7 @@ public class SubmissionServiceImpl implements SubmissionService {
     }
 
     @Override
-    public Long countByAssignmentId(Long assignmentId) {
+    public Integer countByAssignmentId(Long assignmentId) {
         return submissionRepository.countByAssignmentId(assignmentId);
     }
 }

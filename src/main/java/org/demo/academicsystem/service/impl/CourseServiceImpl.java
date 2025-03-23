@@ -1,6 +1,5 @@
 package org.demo.academicsystem.service.impl;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.dto.course.CourseRequest;
 import org.demo.academicsystem.dto.course.CourseResponse;
@@ -10,6 +9,7 @@ import org.demo.academicsystem.mapper.CourseMapper;
 import org.demo.academicsystem.repository.CourseRepository;
 import org.demo.academicsystem.service.CourseService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -63,8 +63,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseResponse> getAllTeacherCourses(Long teacherId) {
-        List<Course> courses = courseRepository.findAllByTeacherId(teacherId);
+    public List<CourseResponse> getAllTeacherCourses(String email) {
+        List<Course> courses = courseRepository.findAllByCreatedBy_Email(email);
         return courses.stream()
                 .map(courseMapper::toResponse)
                 .toList();

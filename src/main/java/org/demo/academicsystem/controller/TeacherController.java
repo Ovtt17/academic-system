@@ -3,7 +3,6 @@ package org.demo.academicsystem.controller;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.demo.academicsystem.dto.teacher.TeacherRequest;
 import org.demo.academicsystem.dto.teacher.TeacherResponse;
 import org.demo.academicsystem.service.TeacherService;
 import org.springframework.http.ResponseEntity;
@@ -26,19 +25,6 @@ public class TeacherController {
     @GetMapping("/{id}")
     public ResponseEntity<TeacherResponse> getTeacherById(@PathVariable @Valid Long id) {
         return ResponseEntity.ok(teacherService.getById(id));
-    }
-
-    @PostMapping
-    public ResponseEntity<TeacherResponse> createAssignment(@RequestBody @Valid TeacherRequest teacher) {
-        return ResponseEntity.ok(teacherService.create(teacher));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<TeacherResponse> updateAssignment(
-            @PathVariable @Valid Long id,
-            @RequestBody @Valid TeacherRequest teacher
-    ) {
-        return ResponseEntity.ok(teacherService.update(id, teacher));
     }
 
     @DeleteMapping("/{id}")

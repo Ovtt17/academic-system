@@ -12,6 +12,8 @@ public record AssignmentResponse(
         String description,
         LocalDate dueDate,
         AssignmentStatus status,
-        Long totalSubmissions
+        Integer totalSubmissions,
+        Integer totalStudents,
+        Long courseId
 ) {
 }

@@ -1,16 +1,11 @@
 package org.demo.academicsystem.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,7 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "teachers")
-@EntityListeners(AuditingEntityListener.class)
 public class Teacher implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,9 +33,6 @@ public class Teacher implements UserDetails {
     @Column(unique = true, nullable = false)
     private String username;
 
-    @Column(nullable = false)
-    private String password;
-
     @Column(length = 8)
     private Integer phone;
     
@@ -49,6 +40,9 @@ public class Teacher implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
+    @Column(nullable = false)
+    private String provider;
 
     @Column(columnDefinition = "TEXT")
     private String profilePicture;
@@ -59,25 +53,13 @@ public class Teacher implements UserDetails {
     
     private String specialization;
 
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdDate;
-
-    @LastModifiedDate
-    @Column(insertable = false)
-    private LocalDateTime lastModifiedDate;
-
-    @OneToMany(mappedBy = "teacher")
-    @JsonManagedReference
-    private List<Course> courses;
-
     public String getFullName() {
         return firstName + " " + lastName;
     }
 
     @Override
     public String getPassword() {
-        return password;
+        return "";
     }
 
     @Override

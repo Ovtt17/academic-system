@@ -70,7 +70,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
-    public List<WeeklyScoreByCourse> getWeeklyScores(Long teacherId) {
-        return assignmentRepository.findWeeklyScoresByTeacherId(teacherId);
+    public List<WeeklyScoreByCourse> getWeeklyScores(String email) {
+        return assignmentRepository.findWeeklyScoresByTeacherEmail(email);
     }
 }
