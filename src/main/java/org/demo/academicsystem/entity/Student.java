@@ -42,7 +42,7 @@ public class Student extends BaseAuditingEntity {
     private String address;
 
     @Column(length = 8)
-    private Integer phone;
+    private String phone;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
