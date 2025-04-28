@@ -19,9 +19,8 @@ public record StudentRequest(
         String email,
 
         @NotNull(message = "Phone number is mandatory")
-        @Min(value = 10000000, message = "Phone number must be 8 digits")
-        @Max(value = 99999999, message = "Phone number must be 8 digits")
-        Integer phone,
+        @Size(max = 8, message = "Phone number must be less than 8 characters")
+        String phone,
 
         @NotBlank(message = "Address is mandatory")
         @Size(max = 100, message = "Address must be less than 100 characters")
