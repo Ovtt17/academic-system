@@ -1,5 +1,6 @@
 package org.demo.academicsystem.config;
 
+import lombok.RequiredArgsConstructor;
 import org.demo.academicsystem.entity.Teacher;
 import org.demo.academicsystem.service.TeacherService;
 import org.springframework.context.annotation.Configuration;
@@ -12,12 +13,9 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import java.util.Optional;
 
 @Configuration
+@RequiredArgsConstructor
 public class AuditorAwareImpl implements AuditorAware<Teacher> {
     private final TeacherService teacherService;
-
-    public AuditorAwareImpl(TeacherService teacherService) {
-        this.teacherService = teacherService;
-    }
 
     @Override
     @NonNull
