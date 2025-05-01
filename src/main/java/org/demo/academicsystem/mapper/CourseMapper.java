@@ -5,6 +5,7 @@ import org.demo.academicsystem.dto.course.CourseRequest;
 import org.demo.academicsystem.dto.course.CourseResponse;
 import org.demo.academicsystem.entity.Course;
 import org.demo.academicsystem.entity.CourseSchedule;
+import org.demo.academicsystem.entity.Teacher;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -18,26 +19,31 @@ public class CourseMapper {
     private final TeacherMapper teacherMapper;
 
     public Course toEntity(CourseRequest request) {
-        Course course = Course.builder()
-                .name(request.name())
-                .description(request.description())
-                .section(request.section())
-                .semester(request.semester())
-                .build();
+        return toEntity(null, request);
+    }
 
-        course.setSchedules(request.schedules().stream()
-                .map(schedule -> {
-                    CourseSchedule courseSchedule = courseScheduleMapper.toEntity(schedule);
-                    courseSchedule.setCourse(course);
-                    return courseSchedule;
-                })
-                .collect(Collectors.toList())
+    public Course toEntity(Course existingCourse, CourseRequest request) {
+        Course course = existingCourse != null ? existingCourse : new Course();
+        course.setName(request.name());
+        course.setDescription(request.description());
+        course.setSection(request.section());
+        course.setSemester(request.semester());
+
+        course.setSchedules(
+                request.schedules().stream()
+                        .map(schedule -> {
+                            CourseSchedule courseSchedule = courseScheduleMapper.toEntity(schedule);
+                            courseSchedule.setCourse(course);
+                            return courseSchedule;
+                        })
+                        .collect(Collectors.toList())
         );
 
         return course;
     }
 
     public CourseResponse toResponse(Course course) {
+        Teacher teacher = course.getCreatedBy();
         return CourseResponse.builder()
                 .id(course.getId())
                 .name(course.getName())
@@ -51,7 +57,7 @@ public class CourseMapper {
                         .map(assignmentMapper::toResponse)
                         .collect(Collectors.toList()) : Collections.emptyList())
                 .totalStudents(course.getEnrollments() != null ? (long) course.getEnrollments().size() : 0L)
-                .teacher(teacherMapper.toResponse(course.getCreatedBy()))
+                .teacher(teacherMapper.toResponse(teacher))
                 .build();
     }
 }
