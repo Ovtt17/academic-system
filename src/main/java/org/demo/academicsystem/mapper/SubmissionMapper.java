@@ -9,20 +9,28 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SubmissionMapper {
-    public Submission toEntity (SubmissionRequest request) {
-        return Submission.builder()
-                .assignment(
-                        Assignment.builder()
-                                .id(request.assignmentId())
-                                .build()
-                )
-                .student(
-                        Student.builder()
-                                .id(request.studentId())
-                                .build()
-                )
-                .build();
+    public Submission toEntity(SubmissionRequest request) {
+        return toEntity(null, request);
     }
+
+    public Submission toEntity(Submission existingSubmission, SubmissionRequest request) {
+        Submission submission = existingSubmission != null ? existingSubmission : new Submission();
+
+        submission.setAssignment(
+                Assignment.builder()
+                        .id(request.assignmentId())
+                        .build()
+        );
+
+        submission.setStudent(
+                Student.builder()
+                        .id(request.studentId())
+                        .build()
+        );
+
+        return submission;
+    }
+
 
     public SubmissionResponse toResponse(Submission submission) {
         return SubmissionResponse.builder()

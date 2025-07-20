@@ -8,16 +8,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentMapper {
     public Student toEntity(StudentRequest request) {
-        return Student.builder()
-                .firstName(request.firstName())
-                .lastName(request.lastName())
-                .email(request.email())
-                .dateOfBirth(request.dateOfBirth())
-                .gender(request.gender())
-                .address(request.address())
-                .phone(request.phone())
-                .build();
+        return toEntity(null, request);
     }
+
+    public Student toEntity(Student existingStudent, StudentRequest request) {
+        Student student = existingStudent != null ? existingStudent : new Student();
+
+        student.setFirstName(request.firstName());
+        student.setLastName(request.lastName());
+        student.setEmail(request.email());
+        student.setDateOfBirth(request.dateOfBirth());
+        student.setGender(request.gender());
+        student.setAddress(request.address());
+        student.setPhone(request.phone());
+
+        return student;
+    }
+
     public StudentResponse toResponse(Student student) {
         return StudentResponse.builder()
                 .id(student.getId())

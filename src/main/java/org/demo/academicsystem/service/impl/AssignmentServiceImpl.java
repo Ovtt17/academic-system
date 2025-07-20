@@ -11,6 +11,7 @@ import org.demo.academicsystem.mapper.AssignmentMapper;
 import org.demo.academicsystem.repository.AssignmentRepository;
 import org.demo.academicsystem.service.AssignmentService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -39,6 +40,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
+    @Transactional
     public AssignmentResponse create(AssignmentRequest assignmentRequest) {
         Assignment newAssigment = assignmentMapper.toEntity(assignmentRequest);
         Assignment savedAssigment = assignmentRepository.save(newAssigment);
@@ -46,17 +48,18 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
+    @Transactional
     public AssignmentResponse update(Long id, AssignmentRequest assignmentRequest) {
-        assignmentRepository.findById(id)
+        Assignment existingAssignment = assignmentRepository.findById(id)
                 .orElseThrow(() -> new AssignmentNotFoundException("Assignment not found with id " + id));
 
-        Assignment updatedAssignment = assignmentMapper.toEntity(assignmentRequest);
-        updatedAssignment.setId(id);
+        Assignment updatedAssignment = assignmentMapper.toEntity(existingAssignment, assignmentRequest);
         Assignment savedAssigment = assignmentRepository.save(updatedAssignment);
         return assignmentMapper.toResponse(savedAssigment);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         if (!assignmentRepository.existsById(id)) {
             throw new AssignmentNotFoundException("Assignment not found with id " + id);

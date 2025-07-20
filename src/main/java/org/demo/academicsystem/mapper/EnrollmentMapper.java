@@ -14,20 +14,28 @@ public class EnrollmentMapper {
     private final StudentMapper studentMapper;
     private final CourseMapper courseMapper;
 
-    public Enrollment toEntity (EnrollmentRequest request) {
-        return Enrollment.builder()
-                .student(
-                        Student.builder()
+    public Enrollment toEntity(EnrollmentRequest request) {
+        return toEntity(null, request);
+    }
+
+    public Enrollment toEntity(Enrollment existingEnrollment, EnrollmentRequest request) {
+        Enrollment enrollment = existingEnrollment != null ? existingEnrollment : new Enrollment();
+
+        enrollment.setStudent(
+                Student.builder()
                         .id(request.studentId())
                         .build()
-                )
-                .course(
-                        Course.builder()
+        );
+
+        enrollment.setCourse(
+                Course.builder()
                         .id(request.courseId())
                         .build()
-                )
-                .build();
+        );
+
+        return enrollment;
     }
+
 
     public EnrollmentResponse toResponse(Enrollment enrollment) {
         return EnrollmentResponse.builder()
